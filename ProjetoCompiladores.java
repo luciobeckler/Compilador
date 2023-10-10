@@ -13,8 +13,18 @@ public class ProjetoCompiladores {
             String linha;
 
             while ((linha = bufferedReader.readLine()) != null) {
-                System.out.println(linha.length()); // Exibe cada linha do arquivo
                 System.out.println("======================================================");
+                
+                // Substitui espaços duplos por um único espaço repetidamente
+                while (linha.contains("  ")) {
+                    linha = linha.replace("  ", " ");
+                }
+                // Retira comentários
+                if(linha.contains("//")){
+                    int inicioComentario = linha.indexOf("//");
+                }
+                System.out.println(linha); // Exibe cada linha do arquivo
+
             }
 
             bufferedReader.close();
