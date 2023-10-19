@@ -18,12 +18,23 @@ public class ProjetoCompiladores {
             String linha;
             String codigoLimpo = "";
 
+            // Retira espaços duplos e comentários
             while ((linha = bufferedReader.readLine()) != null) {
                 // System.out.println(AnaliseLexa.LimpaEspacoBrancoEComentario(linha));
                 codigoLimpo = codigoLimpo.concat(AnaliseLexa.LimpaEspacoBrancoEComentario(linha));
             }
-            // Exibe cada linha do arquivo
+
+            /*
+             * for(int i=0; i < codigoLimpo.length(); i++){
+             * if(codigoLimpo.charAt(i).TabelaDeSimbolos.AdicionarAlfabeto());
+             * }
+             */
+
+            // Exibe o resultado final
             System.out.println(codigoLimpo);
+
+            System.out.println(TabelaDeSimbolos.RetornaAlfabeto());
+            AnaliseLexa.separaTokens(codigoLimpo);
 
             bufferedReader.close();
         } catch (IOException e) {

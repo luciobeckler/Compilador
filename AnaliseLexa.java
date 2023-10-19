@@ -1,25 +1,29 @@
 import java.util.Arrays;
 
 public class AnaliseLexa {
-  public boolean separaTokens(String entrada) {
-    String simbolos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}.,;<>=!()/-*+0123456789 ";
-    String[] dicionarioSimbolos = new String[simbolos.length()];
-
-    // Transforma o dicionario em uma Lista de Simbolos chamado dicionario simbolos
-    for (int i = 0; i < simbolos.length(); i++) {
-      dicionarioSimbolos[i] = String.valueOf(simbolos.charAt(i));
-    }
+  public static void separaTokens(String entrada) {
+    /*
+     * String simbolos =
+     * "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}.,;<>=!()/-*+0123456789 "
+     * ;
+     * String[] dicionarioSimbolos = new String[simbolos.length()];
+     * 
+     * // Transforma o dicionario em uma Lista de Simbolos chamado dicionario
+     * simbolos
+     * for (int i = 0; i < simbolos.length(); i++) {
+     * dicionarioSimbolos[i] = String.valueOf(simbolos.charAt(i));
+     * }
+     */
 
     // Verifica se o caractere não está no dicionário de símbolos
     for (int i = 0; i < entrada.length(); i++) {
       char caractere = entrada.charAt(i);
       String caractereComoString = String.valueOf(caractere);
       // System.out.println(entrada.charAt(i));
-      if (!Arrays.asList(dicionarioSimbolos).contains(caractereComoString)) {
-        return false;
-      } else
-        return true;
-
+      if (TabelaDeSimbolos.RetornaAlfabeto().contains(caractereComoString))
+        System.out.println(caractereComoString);
+      else
+        System.out.println("CARACTERE ERRADO");
     }
   }
 

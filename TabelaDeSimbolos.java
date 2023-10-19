@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class TabelaDeSimbolos {
 
@@ -10,7 +12,7 @@ public class TabelaDeSimbolos {
     hashPalavrasReservadas = new HashSet<String>();
     hashAlfabeto = new HashSet<String>();
     AdicionarPalavrasReservadas();
-    AdicionarAlfabeto();
+    RetornaAlfabeto();
   }
 
   public static TabelaDeSimbolos gTabelaDeSimbolos() {
@@ -21,8 +23,15 @@ public class TabelaDeSimbolos {
 
   }
 
-  private void AdicionarAlfabeto() {
+  public static List<String> RetornaAlfabeto() {
     String simbolos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}.,;<>=!()/-*+0123456789 ";
+    List<String> dicionarioSimbolos = new ArrayList<>();
+
+    for (int i = 0; i < simbolos.length(); i++) {
+      dicionarioSimbolos.add(String.valueOf(simbolos.charAt(i)));
+    }
+
+    return dicionarioSimbolos;
   }
 
   private void AdicionarPalavrasReservadas() {
@@ -34,6 +43,7 @@ public class TabelaDeSimbolos {
     hashPalavrasReservadas.add("while");
     hashPalavrasReservadas.add("if");
     hashPalavrasReservadas.add("break");
+
   }
 
 }
