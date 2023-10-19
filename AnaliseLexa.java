@@ -1,31 +1,8 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AnaliseLexa {
-  public static void separaTokens(String entrada) {
-    /*
-     * String simbolos =
-     * "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}.,;<>=!()/-*+0123456789 "
-     * ;
-     * String[] dicionarioSimbolos = new String[simbolos.length()];
-     * 
-     * // Transforma o dicionario em uma Lista de Simbolos chamado dicionario
-     * simbolos
-     * for (int i = 0; i < simbolos.length(); i++) {
-     * dicionarioSimbolos[i] = String.valueOf(simbolos.charAt(i));
-     * }
-     */
-
-    // Verifica se o caractere não está no dicionário de símbolos
-    for (int i = 0; i < entrada.length(); i++) {
-      char caractere = entrada.charAt(i);
-      String caractereComoString = String.valueOf(caractere);
-      // System.out.println(entrada.charAt(i));
-      if (TabelaDeSimbolos.RetornaAlfabeto().contains(caractereComoString))
-        System.out.println(caractereComoString);
-      else
-        System.out.println("CARACTERE ERRADO");
-    }
-  }
 
   public static String LimpaEspacoBrancoEComentario(String linha) {
     String codigoFinal = "";
@@ -43,4 +20,24 @@ public class AnaliseLexa {
       codigoFinal = codigoFinal.concat(linha);
     return codigoFinal;
   }
+
+  public static Character[] ValidaChars(String entrada) {
+    List<Character> tokens = new ArrayList<>();
+    List<String> alfabeto = TabelaDeSimbolos.RetornaAlfabeto();
+
+    for (int i = 0; i < entrada.length(); i++) {
+      char caractere = entrada.charAt(i);
+      String caractereComoString = String.valueOf(caractere);
+      if (!alfabeto.contains(caractereComoString)) {
+        return null; // Se qualquer caractere não estiver no alfabeto, retorne null
+      }
+      tokens.add(caractere);
+    }
+
+    // Converter a lista para um array de caracteres
+    Character[] tokensArray = tokens.toArray(new Character[0]);
+
+    return tokensArray; // Se todos os caracteres forem válidos, retorne o array de caracteres
+  }
+
 }

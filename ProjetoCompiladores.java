@@ -1,14 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ProjetoCompiladores {
     public static void main(String[] args) {
-
-        TabelaDeSimbolos tabela = TabelaDeSimbolos.gTabelaDeSimbolos();
 
         String nomeArquivo = "./texto.txt"; // Substitua pelo caminho do seu arquivo de texto
         try {
@@ -20,21 +15,20 @@ public class ProjetoCompiladores {
 
             // Retira espaços duplos e comentários
             while ((linha = bufferedReader.readLine()) != null) {
-                // System.out.println(AnaliseLexa.LimpaEspacoBrancoEComentario(linha));
                 codigoLimpo = codigoLimpo.concat(AnaliseLexa.LimpaEspacoBrancoEComentario(linha));
             }
 
-            /*
-             * for(int i=0; i < codigoLimpo.length(); i++){
-             * if(codigoLimpo.charAt(i).TabelaDeSimbolos.AdicionarAlfabeto());
-             * }
-             */
-
-            // Exibe o resultado final
-            System.out.println(codigoLimpo);
-
             System.out.println(TabelaDeSimbolos.RetornaAlfabeto());
-            AnaliseLexa.separaTokens(codigoLimpo);
+
+            // Testa se os chars são válidos
+            if (AnaliseLexa.ValidaChars(codigoLimpo) != null) {
+                System.out.println("DEU CERTO");
+                for (int i = 0; i < AnaliseLexa.ValidaChars(codigoLimpo).length; i++) {
+                    System.out.println(AnaliseLexa.ValidaChars(codigoLimpo)[i]); // ! EXIBE A LISTA DE TOKENS
+
+                }
+            } else
+                System.out.println("ERRO: SINTAXE");
 
             bufferedReader.close();
         } catch (IOException e) {

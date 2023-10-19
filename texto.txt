@@ -5,7 +5,7 @@
      i = i + j; //COMENTARIO
    x = (y - 1) + 3;
      x = 13.8;
-//COMENTARIO
+//COMENTARIO%$#
      y = true; 
      while ( y ) {
 
@@ -13,8 +13,8 @@
            if ( i    <   j )              break; 
 
 $
-$
-@
+#
+!
 
           
      }
