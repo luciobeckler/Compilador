@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AnaliseLexa {
@@ -38,6 +37,16 @@ public class AnaliseLexa {
     Character[] tokensArray = tokens.toArray(new Character[0]);
 
     return tokensArray; // Se todos os caracteres forem válidos, retorne o array de caracteres
+  }
+
+  public static String ValidaECriaTokens(String codigoLimpo) throws Exception {
+
+    if (codigoLimpo.charAt(0) != '{')
+      throw new Exception(); // !JOGA EXCESSÃO DE FALTA DE CHAVES
+    // Passa por todo o array códigoLimpo
+    for (int i = 1; i < AnaliseLexa.ValidaChars(codigoLimpo).length; i++) {
+    }
+    return "falso";
   }
 
 }

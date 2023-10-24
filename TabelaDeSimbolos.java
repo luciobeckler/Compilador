@@ -10,7 +10,6 @@ public class TabelaDeSimbolos {
   private TabelaDeSimbolos() {
     hashPalavrasReservadas = new HashSet<String>();
     AdicionarPalavrasReservadas();
-    RetornaAlfabeto();
   }
 
   public static TabelaDeSimbolos gTabelaDeSimbolos() {

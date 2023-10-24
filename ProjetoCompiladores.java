@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ProjetoCompiladores {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         String nomeArquivo = "./texto.txt"; // Substitua pelo caminho do seu arquivo de texto
         try {
@@ -22,18 +22,21 @@ public class ProjetoCompiladores {
 
             // Testa se os chars são válidos
             if (AnaliseLexa.ValidaChars(codigoLimpo) != null) {
-                System.out.println("DEU CERTO");
+                System.out.println("ANÁLISE LEXA OK");
+
                 for (int i = 0; i < AnaliseLexa.ValidaChars(codigoLimpo).length; i++) {
                     System.out.println(AnaliseLexa.ValidaChars(codigoLimpo)[i]); // ! EXIBE A LISTA DE TOKENS
-
                 }
+
+                AnaliseLexa.ValidaECriaTokens(codigoLimpo);
             } else
-                System.out.println("ERRO: SINTAXE");
+                System.out.println("ERRO: LEXO");
 
             bufferedReader.close();
         } catch (IOException e) {
             System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
+
         // Chama função separaTokens
 
     }
