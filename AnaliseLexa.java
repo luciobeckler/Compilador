@@ -40,12 +40,22 @@ public class AnaliseLexa {
   }
 
   public static String ValidaECriaTokens(String codigoLimpo) throws Exception {
+    ArrayList<Token> listaTokens = new ArrayList<>();
 
-    if (codigoLimpo.charAt(0) != '{')
-      throw new Exception(); // !JOGA EXCESSÃO DE FALTA DE CHAVES
-    // Passa por todo o array códigoLimpo
-    for (int i = 1; i < AnaliseLexa.ValidaChars(codigoLimpo).length; i++) {
+    // !Lança exceção de falta de chaves
+    // Ou adiciona a { na tabela de símbolos e exclui ela do código
+    if (codigoLimpo.charAt(0) != '{') {
+      throw new Exception();
+    } else {
+      listaTokens.add(new Token("simbolo", codigoLimpo.charAt(0)));
+      codigoLimpo = codigoLimpo.substring(1);
     }
+
+    // Passa por todo o array codigoLimpo REMOVER ENQUANTO NÃO FOR VAZIO
+    while (!codigoLimpo.isEmpty()) {
+
+    }
+
     return "falso";
   }
 

@@ -1,28 +1,28 @@
-public class Token{
-        private String nome;
-        private String valor;
+public class Token {
+  private String nome; // id, palavraReservada, numero e simbolo
+  private char valor;
 
-        //Construtor
-        public Token(String nome, String valor) {
-          this.nome = nome;
-          this.valor = valor;
-        }
+  // Construtor
+  public Token(String nome, char valor) {
+    this.nome = nome;
+    this.valor = valor;
+  }
 
-        //Métodos setters e getters
-        public String getNome() {
-          return nome;
-        }
+  // Métodos setters e getters
+  public String getNome() {
+    return nome;
+  }
 
-        public void setNome(String nome) {
-          this.nome = nome;
-        }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-        public String getValor() {
-          return valor;
-        }
+  public char getValor() {
+    return valor;
+  }
 
-        public void setValor(String valor) {
-          this.valor = valor;
-        }
-        
-    }
+  public void setValor(char valor) {
+    this.valor = valor;
+  }
+
+}
