@@ -40,23 +40,54 @@ public class AnaliseLexa {
   }
 
   public static String ValidaECriaTokens(String codigoLimpo) throws Exception {
-    ArrayList<Token> listaTokens = new ArrayList<>();
+    ArrayList<Token> listaTokens = new ArrayList<>(); // !Deve retornar essa estrutura
 
     // !Lança exceção de falta de chaves
     // Ou adiciona a { na tabela de símbolos e exclui ela do código
     if (codigoLimpo.charAt(0) != '{') {
       throw new Exception();
     } else {
-      listaTokens.add(new Token("simbolo", codigoLimpo.charAt(0)));
+      listaTokens.add(new Token("simbolo", codigoLimpo.charAt(0))); // TODO: Trocar num futuro distante o nome para
+                                                                    // nomes expecíficos
       codigoLimpo = codigoLimpo.substring(1);
     }
 
     // Passa por todo o array codigoLimpo REMOVER ENQUANTO NÃO FOR VAZIO
+    int index = 0;
     while (!codigoLimpo.isEmpty()) {
 
+      switch (codigoLimpo.charAt(index)) {
+        case ' ':
+          codigoLimpo = codigoLimpo.substring(1);
+          break;
+
+        case 'b':
+          funcaoDoB(codigoLimpo);
+          break;
+        case 'f':
+          funcaoDoF(codigoLimpo);
+          break;
+        case 'w':
+          funcaoDoW(codigoLimpo);
+          break;
+
+        default:
+          break;
+      }
     }
 
     return "falso";
+  }
+
+  private static void funcaoDoB(String codigoLimpo) {
+
+  }
+
+  private static void funcaoDoF(String codigoLimpo) {
+
+  }
+
+  private static void funcaoDoW(String codigoLimpo) {
   }
 
 }
