@@ -1,7 +1,9 @@
 {
- 02a2;
+  inteiro
+  int
+ 022;
  12 
- 22a
+ 22
  3
  4
  5
@@ -16,7 +18,5 @@
     bolll
     bool
     bo
-
-    teste
     }
     
