@@ -57,6 +57,7 @@ public class AnaliseLexa {
     // Passa por todo o array codigoLimpo REMOVER ENQUANTO NÃO FOR VAZIO
     while (!codigoLimpo.isEmpty()) {
       String[] stringAux;
+      System.out.println(codigoLimpo.charAt(0));
       switch (codigoLimpo.charAt(0)) {
         case ' ':
           while (codigoLimpo.charAt(0) == ' ') {
@@ -76,10 +77,27 @@ public class AnaliseLexa {
           System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
           break;
         case 'w':
-          funcaoDoW(codigoLimpo);
+          stringAux = funcaoDoW(codigoLimpo);
+          codigoLimpo = stringAux[2];
+          listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
+          System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
+          break;
+        case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9':
+          stringAux = funcaoDoNumero(codigoLimpo);
+          codigoLimpo = stringAux[2];
+          listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
+          System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
           break;
         default:
-          System.out.println("FIM");
+          if (Character.isDigit(codigoLimpo.charAt(0))) {
+            stringAux = funcaoDoNumero(codigoLimpo);
+            codigoLimpo = stringAux[2];
+            listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] }));
+            System.out.println("Palavra adicionada na listaTokens pela funcaoDoNumero: " + codigoLimpo);
+          } else {
+            codigoLimpo = codigoLimpo.substring(1);
+            System.out.println("Caractere não reconhecido");
+          }
           break;
       }
     }
@@ -91,6 +109,7 @@ public class AnaliseLexa {
     return "falso";
   }
 
+  // *Funções de identificação de token
   private static String[] funcaoDoB(String codigoLimpo) {
     String retornoToken[] = { "", "", "" };
     // Testa se o b é de bool
@@ -115,7 +134,7 @@ public class AnaliseLexa {
 
   private static String[] funcaoDoF(String codigoLimpo) {
     String retornoToken[] = { "", "", "" };
-    // Testa se o b é de bool
+    // Testa se o f é de float
     if (codigoLimpo.charAt(1) == 'l' && codigoLimpo.charAt(2) == 'o' && codigoLimpo.charAt(3) == 'a'
         && codigoLimpo.charAt(4) == 't'
         && codigoLimpo.charAt(5) == ' ') {
@@ -136,7 +155,56 @@ public class AnaliseLexa {
     }
   }
 
-  private static void funcaoDoW(String codigoLimpo) {
+  private static String[] funcaoDoW(String codigoLimpo) {
+    String retornoToken[] = { "", "", "" };
+    // Testa se o w é de while
+    if (codigoLimpo.charAt(1) == 'h' && codigoLimpo.charAt(2) == 'i' && codigoLimpo.charAt(3) == 'l'
+        && codigoLimpo.charAt(4) == 'e'
+        && codigoLimpo.charAt(5) == ' ') {
+      retornoToken[0] = "palavraReservada";
+      retornoToken[1] = codigoLimpo.substring(0, 5);
+      retornoToken[2] = codigoLimpo.substring(5); // Limpa o código
+      return retornoToken;
+    } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
+             // código limpo até encontrar um espaço
+      while (codigoLimpo.charAt(0) != ' ') {
+        retornoToken[1] += codigoLimpo.charAt(0);
+        codigoLimpo = codigoLimpo.substring(1); // Limpa o código
+      }
+      retornoToken[0] = "id";
+      retornoToken[2] = codigoLimpo;
+
+      return retornoToken;
+    }
   }
 
+  private static String[] funcaoDoNumero(String codigoLimpo) throws Exception {
+    String retornoToken[] = { "", "", "" };
+    while (codigoLimpo.charAt(0) != ' ' && codigoLimpo.charAt(0) != ';' && codigoLimpo.charAt(0) != ')'
+        && codigoLimpo.charAt(0) != '}') { // !Dois erros que podem vir a alarmar é quando o numero é
+                                           // !encerrado por ; ou )
+      retornoToken[1] += codigoLimpo.charAt(0);
+      codigoLimpo = codigoLimpo.substring(1); // Limpa o código
+    }
+
+    /* Character.isDigit(codigoLimpo.charAt(0)) */
+
+    boolean isNumber = true;
+    for (int i = 0; i < retornoToken[1].length(); i++) {
+      if (!Character.isDigit(retornoToken[1].charAt(i))) {
+        isNumber = false;
+      } else
+        isNumber = isNumber && true;
+    }
+
+    if (isNumber) {
+      retornoToken[0] = "numero";
+      retornoToken[2] = codigoLimpo;
+    } else {
+      System.out.println("Caractere incial errado");
+      throw new Exception();
+    }
+    return retornoToken;
+
+  }
 }
