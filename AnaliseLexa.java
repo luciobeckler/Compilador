@@ -69,31 +69,31 @@ public class AnaliseLexa {
           stringAux = funcaoDosSimbolos(codigoLimpo);
           codigoLimpo = stringAux[2];
           listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
-          System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
           break;
         case 'b':
           stringAux = funcaoDoB(codigoLimpo);
           codigoLimpo = stringAux[2];
           listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
-          System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
           break;
         case 'f':
           stringAux = funcaoDoF(codigoLimpo);
           codigoLimpo = stringAux[2];
           listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
-          System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
           break;
         case 'w':
           stringAux = funcaoDoW(codigoLimpo);
           codigoLimpo = stringAux[2];
           listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
-          System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
           break;
         case 'i':
           stringAux = funcaoDoI(codigoLimpo);
           codigoLimpo = stringAux[2];
           listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
-          System.out.println("Palavra adicionada na listaTokens pela funcaoDoB: " + codigoLimpo);
+          break;
+        case 't':
+          stringAux = funcaoDoT(codigoLimpo);
+          codigoLimpo = stringAux[2];
+          listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] })); // Descobrir como receber o retorno
           break;
         case '0':
         case '1':
@@ -108,21 +108,15 @@ public class AnaliseLexa {
           stringAux = funcaoDoNumero(codigoLimpo);
           codigoLimpo = stringAux[2];
           listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] }));
-          System.out.println("Palavra adicionada na listaTokens pela funcaoDoNumero: " + codigoLimpo);
           break;
         default:
           stringAux = funcaoDaVariavel(codigoLimpo);
           codigoLimpo = stringAux[2];
           listaTokens.add(new Token(new String[] { stringAux[0], stringAux[1] }));
-          System.out.println("Palavra adicionada na listaTokens pela funcaoDoNumero: " + codigoLimpo);
           break;
       }
     }
-    System.out.println(listaTokens.size());
-    for (int i = 0; i < listaTokens.size(); i++) {
-      System.out.println("ListaTokens no index " + i + ":" + listaTokens.get(i));
-    }
-
+    System.err.println(listaTokens);
     return "falso";
   }
 
@@ -135,6 +129,17 @@ public class AnaliseLexa {
       retornoToken[0] = "palavraReservada";
       retornoToken[1] = codigoLimpo.substring(0, 4);
       retornoToken[2] = codigoLimpo.substring(4); // Limpa o código
+      return retornoToken;
+    }
+    if (codigoLimpo.charAt(1) == 'r' && codigoLimpo.charAt(2) == 'e' && codigoLimpo.charAt(3) == 'a'
+        && codigoLimpo.charAt(4) == 'k'
+        && (codigoLimpo.charAt(5) == ' ' || codigoLimpo.charAt(5) == ';')) {
+      retornoToken[0] = "palavraReservada";
+      retornoToken[1] = codigoLimpo.substring(0, 5);
+      if (codigoLimpo.charAt(5) == ' ')
+        retornoToken[2] = codigoLimpo.substring(5); // Limpa o código para o espaço
+      else if (codigoLimpo.charAt(5) == ';')
+        retornoToken[2] = codigoLimpo.substring(4); // Limpa o código mas mantem o ;
       return retornoToken;
     } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
              // código limpo até encontrar um espaço
@@ -154,6 +159,16 @@ public class AnaliseLexa {
     // Testa se o f é de float
     if (codigoLimpo.charAt(1) == 'l' && codigoLimpo.charAt(2) == 'o' && codigoLimpo.charAt(3) == 'a'
         && codigoLimpo.charAt(4) == 't'
+        && (codigoLimpo.charAt(5) == ' ' || codigoLimpo.charAt(5) == ';')) {
+      retornoToken[0] = "palavraReservada";
+      retornoToken[1] = codigoLimpo.substring(0, 5);
+      if (codigoLimpo.charAt(5) == ';')
+        retornoToken[2] = codigoLimpo.substring(4);
+      else
+        retornoToken[2] = codigoLimpo.substring(5); // Limpa o código
+      return retornoToken;
+    } else if (codigoLimpo.charAt(1) == 'a' && codigoLimpo.charAt(2) == 'l' && codigoLimpo.charAt(3) == 's'
+        && codigoLimpo.charAt(4) == 'e'
         && codigoLimpo.charAt(5) == ' ') {
       retornoToken[0] = "palavraReservada";
       retornoToken[1] = codigoLimpo.substring(0, 5);
@@ -195,28 +210,84 @@ public class AnaliseLexa {
     }
   }
 
+  private static String[] funcaoDoI(String codigoLimpo) {
+    String retornoToken[] = { "", "", "" };
+    // Testa se o i é de int
+    if (codigoLimpo.charAt(1) == 'n' && codigoLimpo.charAt(2) == 't'
+        && (codigoLimpo.charAt(3) == ' ' || codigoLimpo.charAt(3) == ';')) {
+      retornoToken[0] = "palavraReservada";
+      retornoToken[1] = codigoLimpo.substring(0, 3);
+      if (codigoLimpo.charAt(3) == ' ')
+        codigoLimpo = codigoLimpo.substring(3); // Limpa o código
+      else
+        codigoLimpo = codigoLimpo.substring(2);
+      retornoToken[2] = codigoLimpo;
+      return retornoToken;
+    } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
+             // código limpo até encontrar um espaço
+      while (codigoLimpo.charAt(0) != ' ') {
+        retornoToken[1] += codigoLimpo.charAt(0);
+        codigoLimpo = codigoLimpo.substring(1); // Limpa o código
+      }
+      retornoToken[0] = "id";
+      retornoToken[2] = codigoLimpo;
+
+      return retornoToken;
+    }
+  }
+
+  private static String[] funcaoDoT(String codigoLimpo) {
+    String retornoToken[] = { "", "", "" };
+    // Testa se o t é de true
+    if (codigoLimpo.charAt(1) == 'r' && codigoLimpo.charAt(2) == 'u' && codigoLimpo.charAt(3) == 'e'
+        && (codigoLimpo.charAt(4) == ' ' || codigoLimpo.charAt(4) == ';')) {
+      retornoToken[0] = "palavraReservada";
+      retornoToken[1] = codigoLimpo.substring(0, 4);
+
+      if (codigoLimpo.charAt(5) == ' ')
+        retornoToken[2] = codigoLimpo.substring(5); // Limpa o código para o espaço
+      else if (codigoLimpo.charAt(5) == ';')
+        retornoToken[2] = codigoLimpo.substring(4); // Limpa o código mas mantem o ;
+
+      return retornoToken;
+    } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
+      // código limpo até encontrar um espaço
+      while (codigoLimpo.charAt(0) != ' ' || codigoLimpo.charAt(0) == ';') {
+        retornoToken[1] += codigoLimpo.charAt(0);
+        codigoLimpo = codigoLimpo.substring(1); // Limpa o código
+      }
+      retornoToken[0] = "id";
+      retornoToken[2] = codigoLimpo;
+
+      return retornoToken;
+    }
+  }
+
   private static String[] funcaoDoNumero(String codigoLimpo) throws Exception {
     String retornoToken[] = { "", "", "" };
-    while (codigoLimpo.charAt(0) != ' ' && codigoLimpo.charAt(0) != ';' && codigoLimpo.charAt(0) != ')'
-        && codigoLimpo.charAt(0) != '}') { // !Dois erros que podem vir a alarmar é quando o numero é
-                                           // !encerrado por ; ou )
+    boolean isDecimal = false;
+
+    while (codigoLimpo.length() > 0 && (Character.isDigit(codigoLimpo.charAt(0)) || codigoLimpo.charAt(0) == '.')) {
+      if (codigoLimpo.charAt(0) == '.') {
+        if (isDecimal) {
+          // Se já encontramos um ponto decimal anteriormente, isso é um erro
+          System.out.println("Erro: Número decimal inválido");
+          throw new Exception();
+        }
+        isDecimal = true;
+      }
+
       retornoToken[1] += codigoLimpo.charAt(0);
       codigoLimpo = codigoLimpo.substring(1); // Limpa o código
     }
-    boolean isNumber = true;
-    for (int i = 0; i < retornoToken[1].length(); i++) {
-      if (!Character.isDigit(retornoToken[1].charAt(i))) {
-        isNumber = false;
-      } else
-        isNumber = isNumber && true;
-    }
-    if (isNumber) {
-      retornoToken[0] = "numero";
-      retornoToken[2] = codigoLimpo;
+
+    if (isDecimal) {
+      retornoToken[0] = "numeroDecimal";
     } else {
-      System.out.println("Caractere incial errado");
-      throw new Exception();
+      retornoToken[0] = "numeroInteiro";
     }
+
+    retornoToken[2] = codigoLimpo;
     return retornoToken;
   }
 
@@ -232,28 +303,18 @@ public class AnaliseLexa {
 
   private static String[] funcaoDaVariavel(String codigoLimpo) {
     String retornoToken[] = { "", "", "" };
-
+    retornoToken[0] = "id";
+    while (codigoLimpo.charAt(0) != ' ' && codigoLimpo.charAt(0) != ';' && codigoLimpo.charAt(0) != ')'
+        && codigoLimpo.charAt(0) != '}'
+        && codigoLimpo.charAt(0) != '=' && codigoLimpo.charAt(0) != '!' && codigoLimpo.charAt(0) != '+'
+        && codigoLimpo.charAt(0) != '-'
+        && codigoLimpo.charAt(0) != '*' && codigoLimpo.charAt(0) != '/' && codigoLimpo.charAt(0) != '>'
+        && codigoLimpo.charAt(0) != '<') {
+      retornoToken[1] += codigoLimpo.charAt(0);
+      codigoLimpo = codigoLimpo.substring(1);
+    }
+    retornoToken[2] = codigoLimpo;
     return retornoToken;
   }
 
-  private static String[] funcaoDoI(String codigoLimpo) {
-    String retornoToken[] = { "", "", "" };
-    // Testa se o w é de while
-    if (codigoLimpo.charAt(1) == 'n' && codigoLimpo.charAt(2) == 't' && codigoLimpo.charAt(3) == ' ') {
-      retornoToken[0] = "palavraReservada";
-      retornoToken[1] = codigoLimpo.substring(0, 3);
-      retornoToken[2] = codigoLimpo.substring(3); // Limpa o código
-      return retornoToken;
-    } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
-             // código limpo até encontrar um espaço
-      while (codigoLimpo.charAt(0) != ' ') {
-        retornoToken[1] += codigoLimpo.charAt(0);
-        codigoLimpo = codigoLimpo.substring(1); // Limpa o código
-      }
-      retornoToken[0] = "id";
-      retornoToken[2] = codigoLimpo;
-
-      return retornoToken;
-    }
-  }
 }
