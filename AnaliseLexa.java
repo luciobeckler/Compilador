@@ -116,7 +116,10 @@ public class AnaliseLexa {
           break;
       }
     }
-    System.err.println(listaTokens);
+    for (int index = 0; index < listaTokens.size(); index++) {
+      Token token = listaTokens.get(index);
+      System.err.println("<" + token.getNome() + "," + token.getValor() + ">");
+    }
     return "falso";
   }
 
