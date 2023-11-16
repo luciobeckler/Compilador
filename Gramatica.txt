@@ -1,0 +1,22 @@
+Inicio -> { Gerenciador }
+
+Gerenciador -> Inicio || Gerenciador PalavraReservada Gerenciador || Vazio
+
+PalavraReservada -> "bool" ID '=' PalavraReservada || "int" ID || "float" ID || "true"';' || "true"')' Bloco || "false"';' 
+|| "false"')' Bloco || "if"'( FunçãoLogicaDecisão )' || "while" ( FunçãoLogicaDecisão )
+
+FunçãoLogicaDecisão -> "true" || "false" || ID || Numero
+
+IDecisao -> id || id '<' ID || id '>' ID || id '>=' ID
+
+Bloco -> ABRE BLOCO OU FINALIZA COM ;
+ 
+
+
+//FAZER A GRAMÁTICA POR PARTES 
+- Criação do código
+- Atribuição
+- Expressão
+    -break
+- Decisão
+ 
