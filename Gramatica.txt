@@ -19,4 +19,16 @@ Bloco -> ABRE BLOCO OU FINALIZA COM ;
 - Expressão
     -break
 - Decisão
+
+
+Inicio -> { Declarador }
+
+Declarador -> { palavrareservada indice ; Gerenciador} || { palavrareservada indice = numero ; Gerenciador } || { palavrareservada indice = true ; Gerenciador } || { palavrareservada indice = false ; Gerenciador } || Inicio || Y
+
+Declarador -> { int indice ; Gerenciador} || { float indice ; Gerenciador} || { bool indice ; Gerenciador} || { int indice = numero ; Gerenciador } || { float indice = numero ; Gerenciador } || { bool indice = true ; Gerenciador } || { bool indice = false ; Gerenciador } || Inicio || Y
+
+
+
+Inicializador -> palavrareservada indice 
+
  
