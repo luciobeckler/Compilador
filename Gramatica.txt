@@ -21,14 +21,26 @@ Bloco -> ABRE BLOCO OU FINALIZA COM ;
 - Decisão
 
 
-Inicio -> { Declarador }
+LÓGICA
+Inicio -> { Declarador } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
-Declarador -> { palavrareservada indice ; Gerenciador} || { palavrareservada indice = numero ; Gerenciador } || { palavrareservada indice = true ; Gerenciador } || { palavrareservada indice = false ; Gerenciador } || Inicio || Y
+Declarador -> Inicio || Y ||  Tipo indice; Atribuidor 
 
-Declarador -> { int indice ; Gerenciador} || { float indice ; Gerenciador} || { bool indice ; Gerenciador} || { int indice = numero ; Gerenciador } || { float indice = numero ; Gerenciador } || { bool indice = true ; Gerenciador } || { bool indice = false ; Gerenciador } || Inicio || Y
+Atribuidor -> Declarador || Atribuidor || Y || indice = numero ; Declarador  ||  indice = indice ; Declarador  ||  indice = TrueOrFalse ; Declarador || indice = Termo Expressão || indice = ( LogicaMatematica ) 
+
+LogicaMatematica -> Termo ||( LogicaMatematica ) || Termo Expressão
+
+Expressão -> Operador Termo  || ( Expressão ) || Termo Operador
 
 
 
-Inicializador -> palavrareservada indice 
+AUXILIARES: 
 
+Tipo -> int || float || bool
+
+Termo -> numero || indice
+
+Operador -> + || - || * || /
+
+TrueOrFalse -> true || false
  
