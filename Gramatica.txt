@@ -21,26 +21,32 @@ Bloco -> ABRE BLOCO OU FINALIZA COM ;
 - Decisão
 
 
-LÓGICA
+FLUXO DA GRAMÁTICA
 Inicio -> { Declarador } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
-Declarador -> Inicio || Y ||  Tipo indice; Atribuidor 
+Declarador -> Inicio || Y ||  Tipo indice ; Atribuidor 
 
-Atribuidor -> Declarador || Atribuidor || Y || indice = numero ; Declarador  ||  indice = indice ; Declarador  ||  indice = TrueOrFalse ; Declarador || indice = Termo Expressão || indice = ( LogicaMatematica ) 
+Atribuidor -> Declarador || Atribuidor || ; || Y || indice = indice ; Declarador ||  indice = TrueOrFalse ; Declarador || 
+indice = Expressão ; Declarador || while (Condicional) { Declarador } Declarador || if ( Condicional ) { Declarador } Declarador
 
-LogicaMatematica -> Termo ||( LogicaMatematica ) || Termo Expressão
+Condicional -> CONTINUAR DAQUI, FAZER LÓGICA DA CONDIÇÃO
 
-Expressão -> Operador Termo  || ( Expressão ) || Termo Operador
+OperadorCondiciona -> < || > || <= || >= || = || != 
 
 
 
-AUXILIARES: 
+
+AUXILIARES DA GRAMÁTICA: 
 
 Tipo -> int || float || bool
 
 Termo -> numero || indice
 
-Operador -> + || - || * || /
-
 TrueOrFalse -> true || false
+
+Expressão -> Expressão Operador Expressão || ( Expressão ) || Identificador || + Expressão || - Expressão
+
+Identificador -> Expressão || numero || indice
+
+Operador -> + || - || * || /
  
