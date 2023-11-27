@@ -16,22 +16,21 @@ Bloco -> ABRE BLOCO OU FINALIZA COM ;
 //FAZER A GRAMÁTICA POR PARTES 
 - Criação do código
 - Atribuição
-- Expressão
+- ExpressãoMatematica
     -break
 - Decisão
 
 
-FLUXO DA GRAMÁTICA
+FLUXO DA GRAMÁTICA:
+
 Inicio -> { Declarador } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
 Declarador -> Inicio || Y ||  Tipo indice ; Atribuidor 
 
 Atribuidor -> Declarador || Atribuidor || ; || Y || indice = indice ; Declarador ||  indice = TrueOrFalse ; Declarador || 
-indice = Expressão ; Declarador || while (Condicional) { Declarador } Declarador || if ( Condicional ) { Declarador } Declarador
+indice = ExpressãoMatematica ; Declarador || WhileOrIf (Condicional) { Declarador } Declarador 
 
-Condicional -> CONTINUAR DAQUI, FAZER LÓGICA DA CONDIÇÃO
-
-OperadorCondiciona -> < || > || <= || >= || = || != 
+Condicional -> ValorCondicionalSimples || ExpressãoMatematica OperadorCondicional ExpressãoMatematica || ExpressãoLogica OperadorCondicionalIgualdade ExpressãoLogica
 
 
 
@@ -44,9 +43,22 @@ Termo -> numero || indice
 
 TrueOrFalse -> true || false
 
-Expressão -> Expressão Operador Expressão || ( Expressão ) || Identificador || + Expressão || - Expressão
+IdentificadorMatematico -> ExpressãoMatematica || numero || indice
 
-Identificador -> Expressão || numero || indice
+IdentificadorLogico -> ExpressãoLogica || TrueOrFalse || indice || numero
 
-Operador -> + || - || * || /
+OperadorMatematico -> + || - || * || /
  
+EqualOrDiferent -> == || !=
+
+OperadorCondicional -> < || > || <= || >= || == || != 
+
+OperadorCondicionalIgualdade -> == | !=
+
+ExpressãoMatematica -> ExpressãoMatematica OperadorMatematico ExpressãoMatematica || ( ExpressãoMatematica ) || IdentificadorMatematico || + ExpressãoMatematica || - ExpressãoMatematica
+
+ValorCondicionalSimples -> indice || TrueOrFalse
+
+WhileOrIf -> while || if
+
+ExpressãoLogica -> (ExpressãoLogica) || IdentificadorLogico || ExpressãoMatematica || ExpressãoLogica OperadorCondicional ExpressãoLogica || OperadorCondicional ExpressãoLogica
