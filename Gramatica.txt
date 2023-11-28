@@ -1,6 +1,6 @@
-Inicio -> { Gerenciador }
+INICIO -> { Gerenciador }
 
-Gerenciador -> Inicio || Gerenciador PalavraReservada Gerenciador || Vazio
+Gerenciador -> INICIO || Gerenciador PalavraReservada Gerenciador || Vazio
 
 PalavraReservada -> "bool" ID '=' PalavraReservada || "int" ID || "float" ID || "true"';' || "true"')' Bloco || "false"';' 
 || "false"')' Bloco || "if"'( FunçãoLogicaDecisão )' || "while" ( FunçãoLogicaDecisão )
@@ -23,16 +23,17 @@ Bloco -> ABRE BLOCO OU FINALIZA COM ;
 
 FLUXO DA GRAMÁTICA:
 
-Inicio -> { Declarador } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
+INICIO -> { DECLARADOR } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
-Declarador -> Inicio || Y ||  Tipo indice ; Atribuidor 
+DECLARADOR -> INICIO || Y ||  Tipo indice ; ATRIBUIDOR  || break; //Possivelmente terei que criar uma nova regra que retorne DECLARADOR || break; 
 
-Atribuidor -> Declarador || Atribuidor || ; || Y || indice = indice ; Declarador ||  indice = TrueOrFalse ; Declarador || 
-indice = ExpressãoMatematica ; Declarador || WhileOrIf (Condicional) { Declarador } Declarador 
+ATRIBUIDOR -> DECLARADOR || ATRIBUIDOR || ; || Y || indice = indice ; DECLARADOR ||  
+indice = TrueOrFalse ; DECLARADOR || indice = ExpressãoMatematica ; DECLARADOR || 
+WhileOrIf (Condicional) { DECLARADOR } DECLARADOR 
 
-Condicional -> ValorCondicionalSimples || ExpressãoMatematica OperadorCondicional ExpressãoMatematica || ExpressãoLogica OperadorCondicionalIgualdade ExpressãoLogica
-
-
+CONDICIONAL -> ValorCondicionalSimples || 
+ExpressãoMatematica OperadorCondicional ExpressãoMatematica || 
+ExpressãoLogica OperadorCondicionalIgualdade ExpressãoLogica
 
 
 AUXILIARES DA GRAMÁTICA: 
@@ -55,10 +56,12 @@ OperadorCondicional -> < || > || <= || >= || == || !=
 
 OperadorCondicionalIgualdade -> == | !=
 
-ExpressãoMatematica -> ExpressãoMatematica OperadorMatematico ExpressãoMatematica || ( ExpressãoMatematica ) || IdentificadorMatematico || + ExpressãoMatematica || - ExpressãoMatematica
+ExpressãoMatematica -> ExpressãoMatematica OperadorMatematico ExpressãoMatematica || ( ExpressãoMatematica ) || 
+IdentificadorMatematico || OperadorMatematico ExpressãoMatematica
 
 ValorCondicionalSimples -> indice || TrueOrFalse
 
 WhileOrIf -> while || if
 
-ExpressãoLogica -> (ExpressãoLogica) || IdentificadorLogico || ExpressãoMatematica || ExpressãoLogica OperadorCondicional ExpressãoLogica || OperadorCondicional ExpressãoLogica
+ExpressãoLogica -> (ExpressãoLogica) || IdentificadorLogico || ExpressãoLogica OperadorCondicional ExpressãoLogica || OperadorCondicional ExpressãoLogica
+
