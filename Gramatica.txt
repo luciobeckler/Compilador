@@ -25,28 +25,29 @@ FLUXO DA GRAMÁTICA:
 
 INICIO -> { DECLARADOR } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
-DECLARADOR -> INICIO || Y ||  Tipo indice ; ATRIBUIDOR  || break; //Possivelmente terei que criar uma nova regra que retorne DECLARADOR || break; 
+DECLARADOR -> INICIO || Y ||  [ int || float || bool ] indice ; ATRIBUIDOR  || break; //Possivelmente terei que criar uma nova regra que retorne DECLARADOR || break; 
 
-ATRIBUIDOR -> DECLARADOR || ATRIBUIDOR || ; || Y || indice = indice ; DECLARADOR ||  
-indice = TrueOrFalse ; DECLARADOR || indice = ExpressãoMatematica ; DECLARADOR || 
+
+
+ATRIBUIDOR -> DECLARADOR || ; || Y || indice = IndiceComplemento 
 WhileOrIf (Condicional) { DECLARADOR } DECLARADOR 
 
-CONDICIONAL -> ValorCondicionalSimples || 
+IndiceComplemento -> indice ; DECLARADOR || [ true || false ] ; DECLARADOR || ExpressãoMatematica ; DECLARADOR
+
+CONDICIONAL -> [ indice || true || false ] || 
 ExpressãoMatematica OperadorCondicional ExpressãoMatematica || 
 ExpressãoLogica OperadorCondicionalIgualdade ExpressãoLogica
 
 
 AUXILIARES DA GRAMÁTICA: 
 
-Tipo -> int || float || bool
-
 Termo -> numero || indice
 
 TrueOrFalse -> true || false
 
-IdentificadorMatematico -> ExpressãoMatematica || numero || indice
+IdentificadorMatematico -> numero || indice
 
-IdentificadorLogico -> ExpressãoLogica || TrueOrFalse || indice || numero
+IdentificadorLogico -> ExpressãoLogica || [ true || false ] || indice || numero
 
 OperadorMatematico -> + || - || * || /
  
@@ -56,12 +57,29 @@ OperadorCondicional -> < || > || <= || >= || == || !=
 
 OperadorCondicionalIgualdade -> == | !=
 
-ExpressãoMatematica -> ExpressãoMatematica OperadorMatematico ExpressãoMatematica || ( ExpressãoMatematica ) || 
-IdentificadorMatematico || OperadorMatematico ExpressãoMatematica
+ExpressãoMatematica -> Termo ExpressãoMatematica" 
+
+ExpressãoMatematica" -> [ + || - || / || * ] Termo ExpressãoMatematica" || Y
+
+Termo -> Fator Termo"
+
+Termo" -> [ + || - || / || * ] Fator Termo" || Y
+
+Fator -> [ numero || indice ] || (ExpressãoMatematica)
 
 ValorCondicionalSimples -> indice || TrueOrFalse
 
 WhileOrIf -> while || if
 
-ExpressãoLogica -> (ExpressãoLogica) || IdentificadorLogico || ExpressãoLogica OperadorCondicional ExpressãoLogica || OperadorCondicional ExpressãoLogica
+ExpressãoLogica -> (ExpressãoLogica) || IdentificadorLogico || 
+ExpressãoLogica OperadorCondicional ExpressãoLogica || [ < || > || <= || >= || == || !=  ] ExpressãoLogica
 
+ExpressãoLogica -> TermoLogico ExpressãoLogica"
+
+ExpressãoLogica" -> [ < || > || <= || >= || == || !=  ] TermoLogico ExpressãoLogica" || Y
+
+TermoLogico -> FatorLogico TermoLogico"
+
+TermoLogico" -> [ < || > || <= || >= || == || !=  ] Fator TermoLogico" || Y
+
+Fator -> [ true || false || indice ] || ( ExpressãoLogica )
