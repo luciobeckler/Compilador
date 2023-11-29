@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ProjetoCompiladores {
     public static void main(String[] args) throws Exception {
@@ -28,7 +29,12 @@ public class ProjetoCompiladores {
                     System.out.println(AnaliseLexa.ValidaChars(codigoLimpo)[i]); // ! EXIBE A LISTA DE TOKENS
                 }
 
-                AnaliseLexa.ValidaECriaTokens(codigoLimpo);
+                // !Análise Lexa
+                ArrayList<Token> tokensSeparados = AnaliseLexa.ValidaECriaTokens(codigoLimpo);
+
+                // !Análise sintática
+                AnaliseSintatica.ExibeTokens(tokensSeparados);
+
             } else
                 System.out.println("ERRO: LEXO");
 

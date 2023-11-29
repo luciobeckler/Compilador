@@ -39,7 +39,7 @@ public class AnaliseLexa {
     return tokensArray; // Se todos os caracteres forem válidos, retorne o array de caracteres
   }
 
-  public static String ValidaECriaTokens(String codigoLimpo) throws Exception {
+  public static ArrayList<Token> ValidaECriaTokens(String codigoLimpo) throws Exception {
     ArrayList<Token> listaTokens = new ArrayList<>(); // !Deve retornar essa estrutura
 
     // Passa por todo o array codigoLimpo REMOVER ENQUANTO NÃO FOR VAZIO
@@ -120,7 +120,7 @@ public class AnaliseLexa {
       Token token = listaTokens.get(index);
       System.err.println("<" + token.getNome() + "," + token.getValor() + ">");
     }
-    return "falso";
+    return listaTokens;
   }
 
   // *Funções de identificação de token

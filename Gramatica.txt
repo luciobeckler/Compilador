@@ -71,9 +71,6 @@ ValorCondicionalSimples -> indice || TrueOrFalse
 
 WhileOrIf -> while || if
 
-ExpressãoLogica -> (ExpressãoLogica) || IdentificadorLogico || 
-ExpressãoLogica OperadorCondicional ExpressãoLogica || [ < || > || <= || >= || == || !=  ] ExpressãoLogica
-
 ExpressãoLogica -> TermoLogico ExpressãoLogica"
 
 ExpressãoLogica" -> [ < || > || <= || >= || == || !=  ] TermoLogico ExpressãoLogica" || Y
@@ -83,3 +80,5 @@ TermoLogico -> FatorLogico TermoLogico"
 TermoLogico" -> [ < || > || <= || >= || == || !=  ] Fator TermoLogico" || Y
 
 Fator -> [ true || false || indice ] || ( ExpressãoLogica )
+
+
