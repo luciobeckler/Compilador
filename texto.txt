@@ -17,3 +17,7 @@
           
      }
    }
+
+
+
+//Dúvidas: Como trabalhar com Y, exemplo na ExpressãoMatematicaLinha

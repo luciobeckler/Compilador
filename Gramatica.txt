@@ -38,11 +38,11 @@ IgualOuDiferente -> == | !=
 
 ExpressãoMatematica -> Termo ExpressãoMatematica" 
 
-ExpressãoMatematica" -> [ + || - || / || * ] Termo ExpressãoMatematica" || Y
+ExpressãoMatematica" -> OperadorMatematico Termo ExpressãoMatematica" || Y
 
 Termo -> Fator Termo"
 
-Termo" -> [ + || - || / || * ] Fator Termo" || Y
+Termo" -> OperadorMatematico Fator Termo" || Y
 
 Fator -> [ numero || indice ] || (ExpressãoMatematica)
 
@@ -52,13 +52,13 @@ WhileOrIf -> while || if
 
 ExpressãoLogica -> TermoLogico ExpressãoLogica"
 
-ExpressãoLogica" -> [ < || > || <= || >= || == || !=  ] TermoLogico ExpressãoLogica" || Y
+ExpressãoLogica" -> OperadorCondicional TermoLogico ExpressãoLogica" || Y
 
 TermoLogico -> FatorLogico TermoLogico"
 
-TermoLogico" -> [ < || > || <= || >= || == || !=  ] Fator TermoLogico" || Y
+TermoLogico" -> OperadorCondicional Fator TermoLogico" || Y
 
-Fator -> [ true || false || indice ] || ( ExpressãoLogica )
+FatorLogico -> [ true || false || indice ] || ( ExpressãoLogica )
 
 
 
