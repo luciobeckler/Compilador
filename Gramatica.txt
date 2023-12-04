@@ -1,45 +1,26 @@
-INICIO -> { Gerenciador }
+Contruindo análise sintática
+para cada simbolo não terminal, um método privado - Parâmetros ArrayList de tokens  retirando simbolos terminais e chamando métodos
 
-Gerenciador -> INICIO || Gerenciador PalavraReservada Gerenciador || Vazio
-
-PalavraReservada -> "bool" ID '=' PalavraReservada || "int" ID || "float" ID || "true"';' || "true"')' Bloco || "false"';' 
-|| "false"')' Bloco || "if"'( FunçãoLogicaDecisão )' || "while" ( FunçãoLogicaDecisão )
-
-FunçãoLogicaDecisão -> "true" || "false" || ID || Numero
-
-IDecisao -> id || id '<' ID || id '>' ID || id '>=' ID
-
-Bloco -> ABRE BLOCO OU FINALIZA COM ;
- 
+Caso não seja contemplado pela linguagem gere um erro e pare o programa.
 
 
-//FAZER A GRAMÁTICA POR PARTES 
-- Criação do código
-- Atribuição
-- ExpressãoMatematica
-    -break
-- Decisão
-
-
-FLUXO DA GRAMÁTICA:
+////////FLUXO DA GRAMÁTICA:////////////////////////////////////////////////////////////
 
 INICIO -> { DECLARADOR } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
 DECLARADOR -> INICIO || Y ||  [ int || float || bool ] indice ; ATRIBUIDOR  || break; //Possivelmente terei que criar uma nova regra que retorne DECLARADOR || break; 
 
-
-
-ATRIBUIDOR -> DECLARADOR || ; || Y || indice = IndiceComplemento 
+ATRIBUIDOR -> DECLARADOR || Y || indice = IndiceComplemento ||
 WhileOrIf (Condicional) { DECLARADOR } DECLARADOR 
 
 IndiceComplemento -> indice ; DECLARADOR || [ true || false ] ; DECLARADOR || ExpressãoMatematica ; DECLARADOR
 
+RESOLVER AMBIGUIDADE!!!
 CONDICIONAL -> [ indice || true || false ] || 
 ExpressãoMatematica OperadorCondicional ExpressãoMatematica || 
-ExpressãoLogica OperadorCondicionalIgualdade ExpressãoLogica
+ExpressãoLogica IgualOuDiferente ExpressãoLogica
 
-
-AUXILIARES DA GRAMÁTICA: 
+/////// AUXILIARES DA GRAMÁTICA: //////////////////////////////////////////////////////////////////
 
 Termo -> numero || indice
 
@@ -51,11 +32,9 @@ IdentificadorLogico -> ExpressãoLogica || [ true || false ] || indice || numero
 
 OperadorMatematico -> + || - || * || /
  
-EqualOrDiferent -> == || !=
-
 OperadorCondicional -> < || > || <= || >= || == || != 
 
-OperadorCondicionalIgualdade -> == | !=
+IgualOuDiferente -> == | !=
 
 ExpressãoMatematica -> Termo ExpressãoMatematica" 
 
@@ -82,3 +61,140 @@ TermoLogico" -> [ < || > || <= || >= || == || !=  ] Fator TermoLogico" || Y
 Fator -> [ true || false || indice ] || ( ExpressãoLogica )
 
 
+
+
+
+//Resultado da minha separação de tokens
+
+<nome, valor>
+
+<simbolo,{>
+<palavraReservada,int>
+<id,i;>
+<palavraReservada,int>
+<id,j>
+<simbolo,;>
+<palavraReservada,float>
+<id,x>
+<simbolo,;>
+<palavraReservada,bool>
+<id,y>
+<simbolo,;>
+<id,j>
+<simbolo,=>
+<numeroInteiro,10>
+<simbolo,;>
+<id,i>
+<simbolo,=>
+<numeroInteiro,20>
+<simbolo,;>
+<id,i>
+<simbolo,=>
+<id,i>
+<simbolo,+>
+<id,j>
+<simbolo,;>
+<id,x>
+<simbolo,=>
+<simbolo,(>
+<id,y>
+<simbolo,->
+<numeroInteiro,1>
+<simbolo,)>
+<simbolo,+>
+<numeroInteiro,3>
+<simbolo,;>
+<id,x>
+<simbolo,=>
+<numeroDecimal,13.8>
+<simbolo,;>
+<id,y>
+<simbolo,=>
+<palavraReservada,true>
+<palavraReservada,while>
+<simbolo,(>
+<id,y>
+<simbolo,)>
+<simbolo,{>
+<id,i>
+<simbolo,=>
+<id,i>
+<simbolo,+>
+<id,j>
+<simbolo,;>
+<id,if>
+<simbolo,(>
+<id,i>
+<simbolo,<>
+<id,j>
+<simbolo,)>
+<palavraReservada,break>
+<id,k>
+<simbolo,;>
+<simbolo,}>
+<simbolo,}>
+<simbolo><{>
+<palavraReservada><int>
+<id><i;>
+<palavraReservada><int>
+<id><j>
+<simbolo><;>
+<palavraReservada><float>
+<id><x>
+<simbolo><;>
+<palavraReservada><bool>
+<id><y>
+<simbolo><;>
+<id><j>
+<simbolo><=>
+<numeroInteiro><10>
+<simbolo><;>
+<id><i>
+<simbolo><=>
+<numeroInteiro><20>
+<simbolo><;>
+<id><i>
+<simbolo><=>
+<id><i>
+<simbolo><+>
+<id><j>
+<simbolo><;>
+<id><x>
+<simbolo><=>
+<simbolo><(>
+<id><y>
+<simbolo><->
+<numeroInteiro><1>
+<simbolo><)>
+<simbolo><+>
+<numeroInteiro><3>
+<simbolo><;>
+<id><x>
+<simbolo><=>
+<numeroDecimal><13.8>
+<simbolo><;>
+<id><y>
+<simbolo><=>
+<palavraReservada><true>
+<palavraReservada><while>
+<simbolo><(>
+<id><y>
+<simbolo><)>
+<simbolo><{>
+<id><i>
+<simbolo><=>
+<id><i>
+<simbolo><+>
+<id><j>
+<simbolo><;>
+<id><if>
+<simbolo><(>
+<id><i>
+<simbolo><<>
+<id><j>
+<simbolo><)>
+<palavraReservada><break>
+<id><k>
+<simbolo><;>
+<simbolo><}>
+<simbolo><}>

@@ -10,7 +10,7 @@
      while ( y ) {
 
            i = i + j;
-           if ( i    <   j )              break; 
+           if ( i    <=   j )              break; 
 
 
 

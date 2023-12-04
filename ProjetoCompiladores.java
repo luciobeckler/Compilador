@@ -32,8 +32,12 @@ public class ProjetoCompiladores {
                 // !Análise Lexa
                 ArrayList<Token> tokensSeparados = AnaliseLexa.ValidaECriaTokens(codigoLimpo);
 
-                // !Análise sintática
-                AnaliseSintatica.ExibeTokens(tokensSeparados);
+                // !Exibição dos tokens
+                AnalisadorSintatico analisadorSintatico = new AnalisadorSintatico(tokensSeparados);
+                analisadorSintatico.AnaliseLexa();
+
+                // !Análise Lexa
+                /* AnalisadorSintatico.AnaliseLexa(tokensSeparados); */
 
             } else
                 System.out.println("ERRO: LEXO");
