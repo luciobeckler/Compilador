@@ -8,60 +8,40 @@ Caso não seja contemplado pela linguagem gere um erro e pare o programa.
 
 INICIO -> { DECLARADOR } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
-DECLARADOR -> INICIO || Y ||  [ int || float || bool ] indice ; ATRIBUIDOR  || break; //Possivelmente terei que criar uma nova regra que retorne DECLARADOR || break; 
+DECLARADOR -> INICIO || Y ||  [ int || float || bool ] indice ; ATRIBUIDOR  || break;
 
-ATRIBUIDOR -> DECLARADOR || Y || indice = IndiceComplemento ||
-WhileOrIf (Condicional) { DECLARADOR } DECLARADOR 
+ATRIBUIDOR -> DECLARADOR || Y || indice = IndiceComplemento || [while || if] (Condicional) { DECLARADOR } DECLARADOR 
 
 IndiceComplemento -> indice ; DECLARADOR || [ true || false ] ; DECLARADOR || ExpressãoMatematica ; DECLARADOR
 
 RESOLVER AMBIGUIDADE!!!
-CONDICIONAL -> [ indice || true || false ] || 
-ExpressãoMatematica OperadorCondicional ExpressãoMatematica || 
-ExpressãoLogica IgualOuDiferente ExpressãoLogica
+CONDICIONAL -> ExpressãoLogica
 
 /////// AUXILIARES DA GRAMÁTICA: //////////////////////////////////////////////////////////////////
 
-Termo -> numero || indice
+Operadores -> [ < || > || <= || >= || == || != ] ExpressãoLogica || [+ || - || * || /] ExpressãoMatematica Operadores
 
-TrueOrFalse -> true || false
+Termo -> numero || indice
 
 IdentificadorMatematico -> numero || indice
 
 IdentificadorLogico -> ExpressãoLogica || [ true || false ] || indice || numero
 
-OperadorMatematico -> + || - || * || /
- 
-OperadorCondicional -> < || > || <= || >= || == || != 
-
-IgualOuDiferente -> == | !=
+Expressao -> Termo [ < || > || <= || >= || == || !=  ] || Termo [ == | != ]
 
 ExpressãoMatematica -> Termo ExpressãoMatematica" 
 
-ExpressãoMatematica" -> OperadorMatematico Termo ExpressãoMatematica" || Y
+ExpressãoMatematica" -> [+ || - || * || /] Termo ExpressãoMatematica" || Y
 
 Termo -> Fator Termo"
 
-Termo" -> OperadorMatematico Fator Termo" || Y
+Termo" -> [+ || - || * || /] Fator Termo" || Y
 
 Fator -> [ numero || indice ] || (ExpressãoMatematica)
 
-ValorCondicionalSimples -> indice || TrueOrFalse
+ValorCondicionalSimples -> indice || [true || false]
 
-WhileOrIf -> while || if
-
-ExpressãoLogica -> TermoLogico ExpressãoLogica"
-
-ExpressãoLogica" -> OperadorCondicional TermoLogico ExpressãoLogica" || Y
-
-TermoLogico -> FatorLogico TermoLogico"
-
-TermoLogico" -> OperadorCondicional Fator TermoLogico" || Y
-
-FatorLogico -> [ true || false || indice ] || ( ExpressãoLogica )
-
-
-
+ExpressãoLogica -> [ num || indice || true || false ] [< || > || <= || >= || == || !=] [ num || indice || true || false ]
 
 
 //Resultado da minha separação de tokens

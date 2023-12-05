@@ -13,11 +13,10 @@
            if ( i    <=   j )              break; 
 
 
-
+//Dúvidas: Como trabalhar com Y, exemplo na ExpressãoMatematicaLinha. Resolver regras do tipo operador transformando eles em simbolos terminais (+-*/ Expressão | Y)
           
      }
    }
 
 
 
-//Dúvidas: Como trabalhar com Y, exemplo na ExpressãoMatematicaLinha
