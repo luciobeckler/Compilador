@@ -8,24 +8,19 @@ Caso não seja contemplado pela linguagem gere um erro e pare o programa.
 
 INICIO -> { DECLARADOR } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
-DECLARADOR -> INICIO || Y ||  [ int || float || bool ] indice ; ATRIBUIDOR  || break;
+//Esta chegando um indice na classe declarados DECLARADOR -> Y ||  [ int || float || bool ] indice ; ATRIBUIDOR  || break;
 
-ATRIBUIDOR -> DECLARADOR || Y || indice = IndiceComplemento || [while || if] (Condicional) { DECLARADOR } DECLARADOR 
+ATRIBUIDOR -> DECLARADOR || indice = IndiceComplemento || [while || if] (ExpressaoLogica) { DECLARADOR } DECLARADOR 
 
 IndiceComplemento -> indice ; DECLARADOR || [ true || false ] ; DECLARADOR || ExpressãoMatematica ; DECLARADOR
 
-RESOLVER AMBIGUIDADE!!!
-CONDICIONAL -> ExpressãoLogica
+
 
 /////// AUXILIARES DA GRAMÁTICA: //////////////////////////////////////////////////////////////////
-
-Operadores -> [ < || > || <= || >= || == || != ] ExpressãoLogica || [+ || - || * || /] ExpressãoMatematica Operadores
 
 Termo -> numero || indice
 
 IdentificadorMatematico -> numero || indice
-
-IdentificadorLogico -> ExpressãoLogica || [ true || false ] || indice || numero
 
 Expressao -> Termo [ < || > || <= || >= || == || !=  ] || Termo [ == | != ]
 

@@ -214,6 +214,7 @@ public class AnaliseLexa {
   }
 
   private static String[] funcaoDoI(String codigoLimpo) {
+
     String retornoToken[] = { "", "", "" };
     // Testa se o i é de int
     if (codigoLimpo.charAt(1) == 'n' && codigoLimpo.charAt(2) == 't'
@@ -228,7 +229,7 @@ public class AnaliseLexa {
       return retornoToken;
     } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
              // código limpo até encontrar um espaço
-      while (codigoLimpo.charAt(0) != ' ') {
+      while (codigoLimpo.charAt(0) != ';' && codigoLimpo.charAt(0) != ' ') {
         retornoToken[1] += codigoLimpo.charAt(0);
         codigoLimpo = codigoLimpo.substring(1); // Limpa o código
       }

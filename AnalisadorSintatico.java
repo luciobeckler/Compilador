@@ -22,19 +22,19 @@ public class AnalisadorSintatico {
   }
 
   public boolean isIndice() {
-    return this.getNomeTokenZero() == "id";
+    return "id".equals(getNomeTokenZero());
   }
 
   public boolean isPalavraReservada() {
-    return this.getNomeTokenZero() == "palavraReservada";
+    return "palavraReservada".equals(getNomeTokenZero());
   }
 
   public boolean isNumero() {
-    return this.getNomeTokenZero() == "numero";
+    return ("numeroInteiro".equals(getNomeTokenZero()) || "numeroDecimal".equals(getNomeTokenZero()));
   }
 
   public boolean isSimbolo() {
-    return this.getNomeTokenZero() == "simbolo";
+    return "simbolo".equals(getNomeTokenZero());
   }
 
   public boolean isValorZeroEqualsTo(String valorTeste) {
@@ -68,7 +68,7 @@ public class AnalisadorSintatico {
   public void Inicio() throws Exception {
     if (this.isValorZeroEqualsTo("{")) {
       this.removeTokenZero();
-      Declarador();
+      this.Declarador();
     } else {
       throw new Exception(); // !Retorna erro de falta de {
     }
@@ -78,6 +78,7 @@ public class AnalisadorSintatico {
       throw new Exception(); // ! Retorna erro de código fora do bloco principal
   }
 
+  // !Erro -> Está chegando um indice na classe declarador
   public void Declarador() throws Exception {
 
     // * Criação de variável da gramática */
@@ -95,10 +96,7 @@ public class AnalisadorSintatico {
           throw new Exception(); // ! Erro de falta de ;
       } else
         throw new Exception(); // ! Erro de falta de indice
-    }
-    // * Chamando o início novamente */
-    // * Retorna Y em últimmo casoo */
-
+    } // * Else Y */
   }
 
   public void Atribuidor() throws Exception {
@@ -107,20 +105,20 @@ public class AnalisadorSintatico {
       this.removeTokenZero();
       if (this.isValorZeroEqualsTo("=")) {
         this.removeTokenZero();
-        this.IndiceCompleto();
+        this.IndiceComplemento();
       } else
         throw new Exception(); // !Falta de = na atribuição
     }
     // * Chama WhileOrIf */
     else if (this.isValorZeroEqualsTo("while") || isValorZeroEqualsTo("if")) {
       this.removeTokenZero();
-      Condicional();
+      ExpressaoLogica();
+    } else {
+      Declarador();
     }
-    // * Chama declarador novamente */
-    // * Retorna Y em último caso */
   }
 
-  public void IndiceCompleto() throws Exception {
+  public void IndiceComplemento() throws Exception {
     if (this.isIndice()) {
       removeTokenZero();
       if (isValorZeroEqualsTo(";")) {
@@ -143,13 +141,6 @@ public class AnalisadorSintatico {
         Declarador();
       } else
         throw new Exception(); // ! Falta de ; no final
-    }
-  }
-
-  // !Pendente resolução de ambiguidade
-  public void Condicional() throws Exception {
-    if (isIndice() || isValorZeroEqualsTo("false") || isValorZeroEqualsTo("true")) {
-      removeTokenZero();
     }
   }
 
@@ -183,8 +174,23 @@ public class AnalisadorSintatico {
   }
 
   public void ExpressaoLogica() throws Exception {
-    TermoLogico();
-    ExpressaoLogicaLinha();
+    if (isIndice() || isNumero() || isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
+      removeTokenZero();
+      if ((isValorZeroEqualsTo("<") || isValorZeroEqualsTo(">") || isValorZeroEqualsTo("=")
+          || isValorZeroEqualsTo("!")) && isValorPosicaoEqualsTo(1, "=")) {
+        removeTokenZero();
+        removeTokenZero();
+        if (isIndice() || isNumero() || isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
+          removeTokenZero();
+        } else {
+          throw new Exception(); // ! Erro falta de variável
+        }
+      } else {
+        throw new Exception(); // ! Erro de falta de operador lógico
+      }
+    } else {
+      throw new Exception(); // ! Erro falta de variável
+    }
   }
 
   public void Termo() throws Exception {
@@ -209,45 +215,23 @@ public class AnalisadorSintatico {
     }
   }
 
-  public void IdentificadorLogico() throws Exception {
-    if (isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
-      removeTokenZero();
-      return;
-    } else if (isIndice()) {
-      removeTokenZero();
-      return;
-    } else if (isNumero()) {
-      removeTokenZero();
-      return;
-    } else {
-      ExpressaoLogica();
-    }
-  }
-
-  public void OperadorMatematico() throws Exception {
-    if (isValorZeroEqualsTo("+") || isValorZeroEqualsTo("-") ||
-        isValorZeroEqualsTo("*") || isValorZeroEqualsTo("/")) {
-      removeTokenZero();
-      return;
-    }
-  }
-
+  // !Expressão matemática travando com o ;
   public void ExpressaoMatematicaLinha() throws Exception {
-    OperadorMatematico();
-    Termo();
-    ExpressaoLogicaLinha();
-  }
-
-  public void ExpressaoLogicaLinha() throws Exception {
-    OperadorCondicional();
-    TermoLogico();
-    ExpressaoLogicaLinha();
+    if (isValorZeroEqualsTo("+") || isValorZeroEqualsTo("-") || isValorZeroEqualsTo("*") || isValorZeroEqualsTo("/")) {
+      removeTokenZero();
+      Termo();
+      ExpressaoMatematicaLinha();
+    } else
+      return;
   }
 
   public void TermoLinha() throws Exception {
-    OperadorMatematico();
-    Fator();
-    TermoLinha();
+    if (isValorZeroEqualsTo("+") || isValorZeroEqualsTo("-") || isValorZeroEqualsTo("*") || isValorZeroEqualsTo("/")) {
+      removeTokenZero();
+      Termo();
+      ExpressaoMatematicaLinha();
+    } else
+      return;
   }
 
   public void Fator() throws Exception {
@@ -273,35 +257,6 @@ public class AnalisadorSintatico {
       return;
     } else {
       throw new Exception(); // ! Erro de valor condicional simples inválido
-    }
-  }
-
-  public void TermoLogico() throws Exception {
-    FatorLogico();
-    TermoLogicoLinha();
-  }
-
-  public void TermoLogicoLinha() throws Exception {
-    OperadorCondicional();
-    Fator();
-    TermoLogicoLinha();
-  }
-
-  public void FatorLogico() throws Exception {
-    if (isValorZeroEqualsTo("(")) {
-      removeTokenZero();
-      ExpressaoLogica();
-      if (isValorZeroEqualsTo(")")) {
-        removeTokenZero();
-        return;
-      } else {
-        throw new Exception(); // ! Erro de fechamento do ()
-      }
-    } else if (isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false") || isIndice()) {
-      removeTokenZero();
-      return;
-    } else {
-      throw new Exception(); // ! Erro de fator lógico inválido
     }
   }
 
