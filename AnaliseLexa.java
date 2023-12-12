@@ -142,7 +142,7 @@ public class AnaliseLexa {
       if (codigoLimpo.charAt(5) == ' ')
         retornoToken[2] = codigoLimpo.substring(5); // Limpa o código para o espaço
       else if (codigoLimpo.charAt(5) == ';')
-        retornoToken[2] = codigoLimpo.substring(4); // Limpa o código mas mantem o ;
+        retornoToken[2] = codigoLimpo.substring(5); // Limpa o código mas mantem o ;
       return retornoToken;
     } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
              // código limpo até encontrar um espaço
@@ -227,6 +227,12 @@ public class AnaliseLexa {
         codigoLimpo = codigoLimpo.substring(2);
       retornoToken[2] = codigoLimpo;
       return retornoToken;
+    } else if (codigoLimpo.charAt(1) == 'f'
+        && codigoLimpo.charAt(2) == ' ') {
+      retornoToken[0] = "palavraReservada";
+      retornoToken[1] = codigoLimpo.substring(0, 2);
+      retornoToken[2] = codigoLimpo.substring(2);
+      return retornoToken;
     } else { // Caso não for, caminha pelo código e adiciona no retorno e vai retirando de
              // código limpo até encontrar um espaço
       while (codigoLimpo.charAt(0) != ';' && codigoLimpo.charAt(0) != ' ') {
@@ -248,9 +254,9 @@ public class AnaliseLexa {
       retornoToken[0] = "palavraReservada";
       retornoToken[1] = codigoLimpo.substring(0, 4);
 
-      if (codigoLimpo.charAt(5) == ' ')
-        retornoToken[2] = codigoLimpo.substring(5); // Limpa o código para o espaço
-      else if (codigoLimpo.charAt(5) == ';')
+      if (codigoLimpo.charAt(4) == ' ')
+        retornoToken[2] = codigoLimpo.substring(4); // Limpa o código para o espaço
+      else if (codigoLimpo.charAt(4) == ';')
         retornoToken[2] = codigoLimpo.substring(4); // Limpa o código mas mantem o ;
 
       return retornoToken;

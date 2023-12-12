@@ -91,12 +91,13 @@ public class AnalisadorSintatico {
 
         if (this.isValorZeroEqualsTo(";")) {
           this.removeTokenZero();
-          this.Atribuidor();
+          this.Declarador();
         } else
           throw new Exception(); // ! Erro de falta de ;
       } else
         throw new Exception(); // ! Erro de falta de indice
-    } // * Else Y */
+    } else
+      Atribuidor();
   }
 
   public void Atribuidor() throws Exception {
@@ -136,32 +137,27 @@ public class AnalisadorSintatico {
       } else {
         throw new Exception();// ! Falta o "(" após a palavra reservada while/if
       }
-    } else {
-      Declarador();
     }
   }
 
   public void IndiceComplemento() throws Exception {
-    if (this.isIndice()) {
+    if (this.isIndice() && isValorPosicaoEqualsTo(1, ";")) {
       removeTokenZero();
-      if (isValorZeroEqualsTo(";")) {
-        removeTokenZero();
-        Declarador();
-      } else
-        throw new Exception(); // ! Falta de ; no final
-    }
-    if (isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
       removeTokenZero();
-      if (isValorZeroEqualsTo(";")) {
-        removeTokenZero();
-        Declarador();
-      } else
-        throw new Exception(); // ! Falta de ; no final
+      Atribuidor();
+    } else if ((isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) && isValorPosicaoEqualsTo(1, ";")) {
+      removeTokenZero();
+      removeTokenZero();
+      Atribuidor();
+    } else if (isNumero() && isValorPosicaoEqualsTo(1, ";")) {
+      removeTokenZero();
+      removeTokenZero();
+      Atribuidor();
     } else {
       ExpressaoMatematica();
       if (isValorZeroEqualsTo(";")) {
         removeTokenZero();
-        Declarador();
+        Atribuidor();
       } else
         throw new Exception(); // ! Falta de ; no final
     }
@@ -202,6 +198,13 @@ public class AnalisadorSintatico {
       if ((isValorZeroEqualsTo("<") || isValorZeroEqualsTo(">") || isValorZeroEqualsTo("=")
           || isValorZeroEqualsTo("!")) && isValorPosicaoEqualsTo(1, "=")) {
         removeTokenZero();
+        removeTokenZero();
+        if (isIndice() || isNumero() || isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
+          removeTokenZero();
+        } else {
+          throw new Exception(); // ! Erro falta de variável
+        }
+      } else if (isValorZeroEqualsTo(">") || isValorZeroEqualsTo("<")) {
         removeTokenZero();
         if (isIndice() || isNumero() || isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
           removeTokenZero();

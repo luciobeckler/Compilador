@@ -7,7 +7,7 @@
      x = 13.8;
 //COMENTARIO
      y = true; 
-     while ( y ) {
+     while ( y>x ) {
 
            i = i + j;
            if ( i    <=   j )              break; 

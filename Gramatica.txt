@@ -8,7 +8,7 @@ Caso não seja contemplado pela linguagem gere um erro e pare o programa.
 
 INICIO -> { DECLARADOR } // Obrigando o programa a inicializar com declaração, ele pode incializar com while/true e etc
 
-DECLARADOR -> Y ||  [ int || float || bool ] indice ; ATRIBUIDOR  || break;
+DECLARADOR -> Y ||  [ int || float || bool ] indice ; DECLARADOR  || ATRIBUIDOR
 
 ATRIBUIDOR -> indice = IndiceComplemento ATRIBUIDOR || [while || if] (ExpressaoLogica) { ATRIBUIDOR } ATRIBUIDOR 
 
