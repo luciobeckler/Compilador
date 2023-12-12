@@ -106,13 +106,36 @@ public class AnalisadorSintatico {
       if (this.isValorZeroEqualsTo("=")) {
         this.removeTokenZero();
         this.IndiceComplemento();
+        this.Atribuidor();
       } else
         throw new Exception(); // !Falta de = na atribuição
     }
     // * Chama WhileOrIf */
     else if (this.isValorZeroEqualsTo("while") || isValorZeroEqualsTo("if")) {
       this.removeTokenZero();
-      ExpressaoLogica();
+      if (isValorZeroEqualsTo("(")) {
+        removeTokenZero();
+        ExpressaoLogica();
+        if (isValorZeroEqualsTo(")")) {
+          removeTokenZero();
+        } else {
+          throw new Exception();// ! Falta o ")" após a expressão lógica
+        }
+        if (isValorZeroEqualsTo("{")) {
+          removeTokenZero();
+          Atribuidor();
+          if (isValorZeroEqualsTo("}")) {
+            removeTokenZero();
+            Atribuidor();
+          } else {
+            throw new Exception();// ! A chave abera não foi fechada
+          }
+        } else {
+          throw new Exception();// ! A chave não foi aberta
+        }
+      } else {
+        throw new Exception();// ! Falta o "(" após a palavra reservada while/if
+      }
     } else {
       Declarador();
     }
