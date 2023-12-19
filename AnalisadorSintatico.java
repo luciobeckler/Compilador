@@ -59,9 +59,9 @@ public class AnalisadorSintatico {
     });
   }
 
-  ////////// * INÍCIO DA ANÁLISE LEXA
+  ////////// * INÍCIO DA SINTÁTICA
   ////////// *\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-  public void AnaliseLexa() throws Exception {
+  public void AnaliseSintatica() throws Exception {
     this.Inicio();
   }
 
@@ -70,7 +70,8 @@ public class AnalisadorSintatico {
       this.removeTokenZero();
       this.Declarador();
     } else {
-      throw new Exception(); // !Retorna erro de falta de {
+      throw new ErrosCompilador("Erro de falta de abertura de chaves no início do código"); // !Retorna erro de falta de
+                                                                                            // // {
     }
     if (this.isValorZeroEqualsTo("}") && this.listaTokens.size() == 1) {
       // * PASSOU NA ANÁLISE LEXA *\\

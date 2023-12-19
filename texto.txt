@@ -1,22 +1,11 @@
 {
-    //Este é o nosso programa exemplo. Viva $%^*&%!!!!
-     int i; int j; float x; bool y;
-     j = 10; i = 20;
-     i = i + j; //COMENTARIO
-   x = (y - 1) + 3;
-     x = 13.8;
-//COMENTARIO
-     y = true; 
-     while ( y>x ) {
-
-           i = i + j;
-           if ( i    <=   j )              break; 
-
-
-//Dúvidas: Como trabalhar com Y, exemplo na ExpressãoMatematicaLinha. Resolver regras do tipo operador transformando eles em simbolos terminais (+-*/ Expressão | Y)
-          
-     }
-   }
-
-
-
+int i;; int j; float x; bool y;
+j = 10; i = 20;
+i = i + j;
+k = 13.8;
+y = true;
+while ((x>=10,0) y ) {
+i = i + j;
+if ( i < j ) ;
+}
+}

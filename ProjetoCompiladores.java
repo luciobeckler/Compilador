@@ -34,10 +34,7 @@ public class ProjetoCompiladores {
 
                 // !Exibição dos tokens
                 AnalisadorSintatico analisadorSintatico = new AnalisadorSintatico(tokensSeparados);
-                analisadorSintatico.AnaliseLexa();
-
-                // !Análise Lexa
-                /* AnalisadorSintatico.AnaliseLexa(tokensSeparados); */
+                analisadorSintatico.AnaliseSintatica();
 
             } else
                 System.out.println("ERRO: LEXO");
