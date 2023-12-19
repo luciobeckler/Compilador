@@ -70,13 +70,12 @@ public class AnalisadorSintatico {
       this.removeTokenZero();
       this.Declarador();
     } else {
-      throw new ErrosCompilador("Erro de falta de abertura de chaves no início do código"); // !Retorna erro de falta de
-                                                                                            // // {
+      throw new ErrosCompilador("Erro de falta de abertura de chaves no início do código");
     }
     if (this.isValorZeroEqualsTo("}") && this.listaTokens.size() == 1) {
-      // * PASSOU NA ANÁLISE LEXA *\\
+      // * PASSOU NA ANÁLISE SINTATICO *\\
     } else
-      throw new Exception(); // ! Retorna erro de código fora do bloco principal
+      throw new ErrosCompilador(" Erro de código fora do bloco principal ou código sem fechamento de }");
   }
 
   // !Erro -> Está chegando um indice na classe declarador
@@ -94,9 +93,9 @@ public class AnalisadorSintatico {
           this.removeTokenZero();
           this.Declarador();
         } else
-          throw new Exception(); // ! Erro de falta de ;
+          throw new ErrosCompilador(" Erro de falta de ;");
       } else
-        throw new Exception(); // ! Erro de falta de indice
+        throw new ErrosCompilador(" Erro de falta de indice");
     } else
       Atribuidor();
   }
@@ -110,7 +109,7 @@ public class AnalisadorSintatico {
         this.IndiceComplemento();
         this.Atribuidor();
       } else
-        throw new Exception(); // !Falta de = na atribuição
+        throw new ErrosCompilador(" alta de = na atribuição");
     }
     // * Chama WhileOrIf */
     else if (this.isValorZeroEqualsTo("while") || isValorZeroEqualsTo("if")) {
@@ -121,7 +120,7 @@ public class AnalisadorSintatico {
         if (isValorZeroEqualsTo(")")) {
           removeTokenZero();
         } else {
-          throw new Exception();// ! Falta o ")" após a expressão lógica
+          throw new ErrosCompilador(" Falta o ) após a expressão lógica");
         }
         if (isValorZeroEqualsTo("{")) {
           removeTokenZero();
@@ -130,13 +129,13 @@ public class AnalisadorSintatico {
             removeTokenZero();
             Atribuidor();
           } else {
-            throw new Exception();// ! A chave abera não foi fechada
+            throw new ErrosCompilador(" A chave aberta não foi fechada");
           }
         } else {
-          throw new Exception();// ! A chave não foi aberta
+          throw new ErrosCompilador(" A chave não foi aberta");
         }
       } else {
-        throw new Exception();// ! Falta o "(" após a palavra reservada while/if
+        throw new ErrosCompilador(" Falta o ( após a palavra reservada while/if");
       }
     }
   }
@@ -160,7 +159,7 @@ public class AnalisadorSintatico {
         removeTokenZero();
         Atribuidor();
       } else
-        throw new Exception(); // ! Falta de ; no final
+        throw new ErrosCompilador(" Falta de ; no final");
     }
   }
 
@@ -179,7 +178,7 @@ public class AnalisadorSintatico {
       removeTokenZero();
       return;
     } else {
-      throw new Exception(); // ! Erro de operador lógico inválido
+      throw new ErrosCompilador(" Erro de operador lógico inválido");
     }
   }
 
@@ -189,7 +188,7 @@ public class AnalisadorSintatico {
       removeTokenZero();
       removeTokenZero();
     } else {
-      throw new Exception(); // ! Erro de operador de igualdade ou desigualdade inválido
+      throw new ErrosCompilador(" Erro de operador de igualdade ou desigualdade inválido");
     }
   }
 
@@ -203,20 +202,20 @@ public class AnalisadorSintatico {
         if (isIndice() || isNumero() || isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
           removeTokenZero();
         } else {
-          throw new Exception(); // ! Erro falta de variável
+          throw new ErrosCompilador(" Erro falta de variável");
         }
       } else if (isValorZeroEqualsTo(">") || isValorZeroEqualsTo("<")) {
         removeTokenZero();
         if (isIndice() || isNumero() || isValorZeroEqualsTo("true") || isValorZeroEqualsTo("false")) {
           removeTokenZero();
         } else {
-          throw new Exception(); // ! Erro falta de variável
+          throw new ErrosCompilador(" Erro falta de variável");
         }
       } else {
-        throw new Exception(); // ! Erro de falta de operador lógico
+        throw new ErrosCompilador(" Erro de falta de operador lógico");
       }
     } else {
-      throw new Exception(); // ! Erro falta de variável
+      throw new ErrosCompilador(" Erro falta de variável");
     }
   }
 
@@ -230,7 +229,7 @@ public class AnalisadorSintatico {
       removeTokenZero();
       return;
     } else {
-      throw new Exception(); // !Erro de valor true ou false inválido
+      throw new ErrosCompilador(" Erro de valor true ou false inválido");
     }
   }
 
@@ -238,7 +237,7 @@ public class AnalisadorSintatico {
     if (isIndice() || isNumero()) {
       removeTokenZero();
     } else {
-      throw new Exception(); // ! Erro de false índice ou número
+      throw new ErrosCompilador(" Erro de false índice ou número");
     }
   }
 
@@ -269,13 +268,13 @@ public class AnalisadorSintatico {
         removeTokenZero();
         return;
       } else {
-        throw new Exception(); // ! Erro de fechamento do ()
+        throw new ErrosCompilador(" Erro de fechamento do ()");
       }
     } else if (isIndice() || isNumero()) {
       removeTokenZero();
       return;
     } else
-      throw new Exception(); // ! Erro de Fator inválido
+      throw new ErrosCompilador(" Erro de Fator inválido");
   }
 
   public void ValorCondicionalSilmples() throws Exception {
@@ -283,7 +282,7 @@ public class AnalisadorSintatico {
       removeTokenZero();
       return;
     } else {
-      throw new Exception(); // ! Erro de valor condicional simples inválido
+      throw new ErrosCompilador(" Erro de valor condicional simples inválido");
     }
   }
 

@@ -1,11 +1,12 @@
 {
-int i;; int j; float x; bool y;
-j = 10; i = 20;
-i = i + j;
-k = 13.8;
-y = true;
-while ((x>=10,0) y ) {
-i = i + j;
-if ( i < j ) ;
-}
+    int i; int j; float x; bool y;
+    j = 10; i = 20;
+    i = i + j;
+    x = 13.8;
+    y = True;
+    while ( y < y  {
+        i = i + j;
+        if ( i < j ){
+        }
+    }
 }
