@@ -24,11 +24,17 @@ public class ProjetoCompiladores {
                 System.out.println("ANÁLISE LEXA OK");
 
                 // !Análise Lexa
-                ArrayList<Token> tokensSeparados = AnaliseLexa.ValidaECriaTokens(codigoLimpo);
+                ArrayList<Token> tokensSintaticos = AnaliseLexa.ValidaECriaTokens(codigoLimpo);
+                ArrayList<Token> tokensSemantico = (ArrayList<Token>) tokensSintaticos.clone();
 
                 // !Exibição dos tokens
-                AnalisadorSintatico analisadorSintatico = new AnalisadorSintatico(tokensSeparados);
+                AnalisadorSintatico analisadorSintatico = new AnalisadorSintatico(tokensSintaticos);
                 analisadorSintatico.AnaliseSintatica();
+                System.out.println("ANÁLISE SINTÁTICA OK");
+
+                // ! Análise Semântica
+                AnalisadorSemantico analisadorSemantico = new AnalisadorSemantico(tokensSemantico);
+                analisadorSemantico.ExibeTokens();
 
             } else
                 System.out.println("ERRO: LEXO");

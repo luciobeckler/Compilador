@@ -117,6 +117,7 @@ public class AnaliseLexa {
     }
     for (int index = 0; index < listaTokens.size(); index++) {
       Token token = listaTokens.get(index);
+      System.err.println();
     }
     return listaTokens;
   }
