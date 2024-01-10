@@ -35,6 +35,7 @@ public class ProjetoCompiladores {
                 // ! Análise Semântica
                 AnalisadorSemantico analisadorSemantico = new AnalisadorSemantico(tokensSemantico);
                 analisadorSemantico.ExibeTokens();
+                analisadorSemantico.AnaliseSemantica(tokensSemantico);
 
             } else
                 System.out.println("ERRO: LEXO");

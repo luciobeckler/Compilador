@@ -13,4 +13,8 @@ public class AnalisadorSemantico {
     });
   }
 
+  public void AnaliseSemantica(ArrayList<Token> listaTokens) {
+    // !Criar lógica para ir dando check nas tarefas do roteiroAnaliseSemantica
+  }
+
 }
