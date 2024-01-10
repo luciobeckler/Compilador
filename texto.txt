@@ -4,7 +4,7 @@
     i = i + j;
     x = 13.8;
     y = True;
-    while ( y < y  {
+    while ( y < y )  {
         i = i + j;
         if ( i < j ){
         }

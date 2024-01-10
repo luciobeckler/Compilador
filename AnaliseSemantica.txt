@@ -1,0 +1,35 @@
+Tipos de verificação semântica:
+- X foi declarado apenas uma vez?
+    int x;
+    ...
+    int x;
+
+- Uso de variáveis de escopo inadequado
+    while(x>y){
+      int x;
+    }
+    x = x+1;
+- Atribuição de um real a um inteiro, observar que o contrário pode
+    int x;
+    x = 1.3;
+
+    x = false / true;
+
+- X foi declarado/definido antes do seu primeiro uso?
+    x=10;
+    int x;
+
+- if / while possuem parâmetros ou expressões que retornam um tipo boolean?
+    if/while(inteiro/float/string/char){}
+    if/while(expressao matematica que não retorne true/false){}
+
+- Operações que não são entre números de tipos compatíveis
+    int x;
+    x = "aaaaaaaaaaa";
+    x = false;
+    x = false || true;
+    x = 1.3;
+
+- As dimensões casam com o declarado?
+    int x; 
+    x = 1.3;

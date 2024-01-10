@@ -45,7 +45,6 @@ public class AnaliseLexa {
     // Passa por todo o array codigoLimpo REMOVER ENQUANTO NÃO FOR VAZIO
     while (!codigoLimpo.isEmpty()) {
       String[] stringAux;
-      System.out.println(codigoLimpo.charAt(0));
       switch (codigoLimpo.charAt(0)) {
         case ' ':
           while (codigoLimpo.charAt(0) == ' ') {
@@ -118,7 +117,6 @@ public class AnaliseLexa {
     }
     for (int index = 0; index < listaTokens.size(); index++) {
       Token token = listaTokens.get(index);
-      System.err.println("<" + token.getNome() + "," + token.getValor() + ">");
     }
     return listaTokens;
   }

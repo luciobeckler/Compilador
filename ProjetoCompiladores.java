@@ -19,15 +19,9 @@ public class ProjetoCompiladores {
                 codigoLimpo = codigoLimpo.concat(AnaliseLexa.LimpaEspacoBrancoEComentario(linha));
             }
 
-            System.out.println(TabelaDeSimbolos.RetornaAlfabeto());
-
             // Testa se os chars são válidos
             if (AnaliseLexa.ValidaChars(codigoLimpo) != null) {
                 System.out.println("ANÁLISE LEXA OK");
-
-                for (int i = 0; i < AnaliseLexa.ValidaChars(codigoLimpo).length; i++) {
-                    System.out.println(AnaliseLexa.ValidaChars(codigoLimpo)[i]); // ! EXIBE A LISTA DE TOKENS
-                }
 
                 // !Análise Lexa
                 ArrayList<Token> tokensSeparados = AnaliseLexa.ValidaECriaTokens(codigoLimpo);
