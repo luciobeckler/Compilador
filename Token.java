@@ -9,6 +9,9 @@ public class Token {
     this.valor = nomeValor[1];
   }
 
+  public Token(String string, String string2) {
+  }
+
   // Métodos setters e getters
   public String getNome() {
     return nome;

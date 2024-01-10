@@ -5,11 +5,11 @@ import java.util.List;
 public class TabelaDeSimbolos {
 
   private static TabelaDeSimbolos tabela;
-  private HashSet<String> hashPalavrasReservadas;
+  private HashSet<Token> hashPalavrasReservadas;
 
   private TabelaDeSimbolos() {
-    hashPalavrasReservadas = new HashSet<String>();
-    AdicionarPalavrasReservadas();
+    hashPalavrasReservadas = new HashSet<Token>();
+    InicializaPalavrasReservadas();
   }
 
   public static TabelaDeSimbolos gTabelaDeSimbolos() {
@@ -33,18 +33,22 @@ public class TabelaDeSimbolos {
   }
 
   // Retorna as palavras reservadas da linguagem
-  private HashSet<String> AdicionarPalavrasReservadas() {
-    hashPalavrasReservadas.add("int");
-    hashPalavrasReservadas.add("float");
-    hashPalavrasReservadas.add("bool");
-    hashPalavrasReservadas.add("true");
-    hashPalavrasReservadas.add("false");
-    hashPalavrasReservadas.add("while");
-    hashPalavrasReservadas.add("if");
-    hashPalavrasReservadas.add("break");
+  private HashSet<Token> InicializaPalavrasReservadas() {
+
+    hashPalavrasReservadas.add(new Token("palavraReservada", "int"));
+    hashPalavrasReservadas.add(new Token("palavraReservada", "float"));
+    hashPalavrasReservadas.add(new Token("palavraReservada", "bool"));
+    hashPalavrasReservadas.add(new Token("palavraReservada", "true"));
+    hashPalavrasReservadas.add(new Token("palavraReservada", "false"));
+    hashPalavrasReservadas.add(new Token("palavraReservada", "while"));
+    hashPalavrasReservadas.add(new Token("palavraReservada", "if"));
+    hashPalavrasReservadas.add(new Token("palavraReservada", "break"));
 
     return hashPalavrasReservadas;
+  }
 
+  private void setPalavraReservada(Token token) {
+    hashPalavrasReservadas.add(token);
   }
 
 }
