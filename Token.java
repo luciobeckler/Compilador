@@ -4,12 +4,9 @@ public class Token {
   private int linha; // Adicionar a linha para indicar ao usuário onde se encontra o erro
 
   // Construtor
-  public Token(String nomeValor[]) { // pode receber uma string
-    this.nome = nomeValor[0];
-    this.valor = nomeValor[1];
-  }
-
-  public Token(String string, String string2) {
+  public Token(String nome, String valor) { // pode receber uma string
+    this.nome = nome;
+    this.valor = valor;
   }
 
   // Métodos setters e getters

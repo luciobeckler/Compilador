@@ -5,9 +5,9 @@ import java.util.List;
 public class TabelaDeSimbolos {
 
   private static TabelaDeSimbolos tabela;
-  private HashSet<Token> hashPalavrasReservadas;
+  private static HashSet<Token> hashPalavrasReservadas = new HashSet<>();
 
-  private TabelaDeSimbolos() {
+  public TabelaDeSimbolos() {
     hashPalavrasReservadas = new HashSet<Token>();
     InicializaPalavrasReservadas();
   }
@@ -33,7 +33,7 @@ public class TabelaDeSimbolos {
   }
 
   // Retorna as palavras reservadas da linguagem
-  private HashSet<Token> InicializaPalavrasReservadas() {
+  public static HashSet<Token> InicializaPalavrasReservadas() {
 
     hashPalavrasReservadas.add(new Token("palavraReservada", "int"));
     hashPalavrasReservadas.add(new Token("palavraReservada", "float"));
@@ -47,8 +47,12 @@ public class TabelaDeSimbolos {
     return hashPalavrasReservadas;
   }
 
-  private void setPalavraReservada(Token token) {
+  public static void setPalavraReservada(Token token) {
     hashPalavrasReservadas.add(token);
+  }
+
+  public static HashSet<Token> getTabelaSimpolos() {
+    return hashPalavrasReservadas;
   }
 
 }
