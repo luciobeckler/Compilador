@@ -4,11 +4,16 @@ Tipos de verificação semântica:
     ...
     int x;
 
+CHECK 
+
 - Uso de variáveis de escopo inadequado
     while(x>y){
       int x;
     }
     x = x+1;
+
+
+
 - Atribuição de um real a um inteiro, observar que o contrário pode
     int x;
     x = 1.3;

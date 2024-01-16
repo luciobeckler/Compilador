@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class AnalisadorSemantico {
@@ -19,22 +21,35 @@ public class AnalisadorSemantico {
     System.err.println("Passei por aqui");
     TabelaDeSimbolos.InicializaPalavrasReservadas();
     TabelaDeSimbolos tabelaSimbolos;
+    tabelaSimbolos = TabelaDeSimbolos.gTabelaDeSimbolos();
 
     for (int i = 0; i < listaTokens.size(); i++) {
-      // *Atualiza tabela de símbolos */
-      tabelaSimbolos = TabelaDeSimbolos.gTabelaDeSimbolos();
+      if (Arrays.asList("int", "bool", "float").contains(listaTokens.get(i).getValor())) {
+        verificaDeclaracaoDuplaDeVariavel(listaTokens, tabelaSimbolos, i);
+      }
+    }
+    verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos);
+  }
 
-      // *Verificação de dupla declaração */
-      if (listaTokens.get(i).getValor().equals("int") || listaTokens.get(i).getValor().equals("float")
-          || listaTokens.get(i).getValor().equals("bool")) {
-        System.out.println("Declaração de variável");
-        if (tabelaSimbolos.isToken(listaTokens.get(i + 1).getValor()) != null) {
-          throw new ErrosCompilador("Variável " + listaTokens.get(i + 1).getValor() + " declarada mais de uma vez");
-        } else {
-          System.out.println("Setando palavra reservada");
-          TabelaDeSimbolos.setPalavraReservada(listaTokens.get(i + 1));
-          // !PALAVRA ESTÁ SENDO ADICIONADA, CONTINUAR LÓGICA DAQUI
-        }
+  private void verificaUsoAntesDaDeclaracao(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos) {
+
+  }
+
+  private void verificaDeclaracaoDuplaDeVariavel(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
+      throws ErrosCompilador {
+    // *Atualiza tabela de símbolos */
+    tabelaDeSimbolos = TabelaDeSimbolos.gTabelaDeSimbolos();
+
+    // *Verificação de dupla declaração */
+    if (listaTokens.get(i).getValor().equals("int") || listaTokens.get(i).getValor().equals("float")
+        || listaTokens.get(i).getValor().equals("bool")) {
+      System.out.println("Declaração de variável");
+      if (tabelaDeSimbolos.isToken(listaTokens.get(i + 1).getValor()) != null) {
+        throw new ErrosCompilador("Variável " + listaTokens.get(i + 1).getValor() + " declarada mais de uma vez");
+      } else {
+        System.out.println("Setando palavra reservada");
+        TabelaDeSimbolos.setPalavraReservada(listaTokens.get(i + 1));
+        // !PALAVRA ESTÁ SENDO ADICIONADA, CONTINUAR LÓGICA DAQUI
       }
     }
   }
