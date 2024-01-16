@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class AnalisadorSemantico {
   private ArrayList<Token> listaToken;
@@ -17,23 +17,23 @@ public class AnalisadorSemantico {
 
   public void AnaliseSemantica(ArrayList<Token> listaTokens) throws ErrosCompilador {
     System.err.println("Passei por aqui");
-    Token tokenAtual;
     TabelaDeSimbolos.InicializaPalavrasReservadas();
-    HashSet<Token> tabelaSimbolos = TabelaDeSimbolos.getTabelaSimpolos();
+    TabelaDeSimbolos tabelaSimbolos;
 
     for (int i = 0; i < listaTokens.size(); i++) {
-      tokenAtual = listaTokens.get(i);
+      // *Atualiza tabela de símbolos */
+      tabelaSimbolos = TabelaDeSimbolos.gTabelaDeSimbolos();
 
       // *Verificação de dupla declaração */
-      if (tokenAtual.getValor().equals("int") || tokenAtual.getValor().equals("float")
-          || tokenAtual.getValor().equals("bool")) {
+      if (listaTokens.get(i).getValor().equals("int") || listaTokens.get(i).getValor().equals("float")
+          || listaTokens.get(i).getValor().equals("bool")) {
         System.out.println("Declaração de variável");
-        if (!tabelaSimbolos.contains(tokenAtual)) {
+        if (tabelaSimbolos.isToken(listaTokens.get(i + 1).getValor()) != null) {
+          throw new ErrosCompilador("Variável " + listaTokens.get(i + 1).getValor() + " declarada mais de uma vez");
+        } else {
           System.out.println("Setando palavra reservada");
           TabelaDeSimbolos.setPalavraReservada(listaTokens.get(i + 1));
           // !PALAVRA ESTÁ SENDO ADICIONADA, CONTINUAR LÓGICA DAQUI
-        } else {
-          throw new ErrosCompilador("Variável " + tokenAtual.getValor() + " declarada mais de uma vez");
         }
       }
     }
