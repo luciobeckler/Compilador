@@ -23,19 +23,43 @@ public class AnalisadorSemantico {
     TabelaDeSimbolos tabelaSimbolos;
     tabelaSimbolos = TabelaDeSimbolos.gTabelaDeSimbolos();
 
-    for (int i = 0; i < listaTokens.size(); i++) {
+    // !Lembrar que no token final não haverá i+1
+    for (int i = 0; i < listaTokens.size() - 1; i++) {
       if (Arrays.asList("int", "bool", "float").contains(listaTokens.get(i).getValor())) {
         verificaDeclaracaoDuplaDeVariavel(listaTokens, tabelaSimbolos, i);
+      } else if (listaTokens.get(i).getNome() == "id" && listaTokens.get(i + 1).getValor() == "="
+          && listaTokens.get(i + 2).getValor() != "=") { // !Avaliar o mesmo problema do começo do for
+        verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
+        verificaTiposDasOperacoes(listaTokens, tabelaSimbolos, i);
+      } else if (Arrays.asList("if", "while").contains(listaTokens.get(i).getValor())) {
+        verificaCondicionalBooleano(listaTokens, tabelaSimbolos, i);
       }
-      verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
+      // !Continuar daqui, implementar gatilho do método do contexto, concertar
+      // possíveis erros que podem ser gerados por conta do "i+2"
 
     }
   }
 
+  // *Método responsável por verificar se as operações dentro do if/while retornam
+  // um tipo boolean */
+  private void verificaCondicionalBooleano(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
+
+  }
+
+  // *Método responsável por verificar se as operações são realizadas com o mesmo
+  // tipo */
+  private void verificaTiposDasOperacoes(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
+
+  }
+
+  // *Método responsável por verificar se a variável foi declarada antes de ser
+  // utilizada */
   private void verificaUsoAntesDaDeclaracao(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
 
   }
 
+  // *Método responsável por verificar se a variável foi declarada mais de uma vez
+  // */
   private void verificaDeclaracaoDuplaDeVariavel(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
       throws ErrosCompilador {
     // *Atualiza tabela de símbolos */

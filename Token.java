@@ -1,5 +1,5 @@
 public class Token {
-  private String nome; // id, palavraReservada, numero e simbolo
+  private String nome; // id, palavraReservada, numeroInteiro, numeroDecimal e simbolo
   private String valor;
   private int linha; // Adicionar a linha para indicar ao usuário onde se encontra o erro
 
