@@ -27,11 +27,12 @@ public class AnalisadorSemantico {
       if (Arrays.asList("int", "bool", "float").contains(listaTokens.get(i).getValor())) {
         verificaDeclaracaoDuplaDeVariavel(listaTokens, tabelaSimbolos, i);
       }
+      verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
+
     }
-    verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos);
   }
 
-  private void verificaUsoAntesDaDeclaracao(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos) {
+  private void verificaUsoAntesDaDeclaracao(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
 
   }
 
