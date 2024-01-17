@@ -29,10 +29,6 @@ public class AnalisadorSemantico {
                                                        // exista, teste o contexto dela
       if (Arrays.asList("int", "bool", "float").contains(listaTokens.get(i).getValor())) {
         verificaDeclaracaoDuplaDeVariavel(listaTokens, tabelaSimbolos, i);
-      } else if (listaTokens.get(i).getNome() == "id" && listaTokens.get(i + 1).getValor() == "="
-          && listaTokens.get(i + 2).getValor() != "=") { // !Avaliar o mesmo problema do começo do for
-        verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
-        verificaTiposDasOperacoes(listaTokens, tabelaSimbolos, i);
       } else if (Arrays.asList("if", "while").contains(listaTokens.get(i).getValor())) {
         verificaCondicionalBooleano(listaTokens, tabelaSimbolos, i);
       } else if (listaTokens.get(i).getValor().equals("{")) {
@@ -41,9 +37,10 @@ public class AnalisadorSemantico {
         contexto--;
       } else if (listaTokens.get(i).getNome() == "id") {
         verificaContexto(listaTokens.get(i));
+        verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
 
         if (listaTokens.get(i + 1).getValor() == "=" && listaTokens.get(i + 2).getNome() != "=") {
-          verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
+          verificaTiposDasOperacoes(listaTokens, tabelaSimbolos, i);
         }
       }
 
@@ -62,8 +59,17 @@ public class AnalisadorSemantico {
 
   // *Método responsável por verificar se as operações dentro do if/while retornam
   // um tipo boolean */
-  private void verificaCondicionalBooleano(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
+  private void verificaCondicionalBooleano(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
+      throws ErrosCompilador {
 
+    // !Continuar daqui, alterar o texto.txt as variáveis dentro do while para
+    // testar se detecta variáveis tipo bool e diferentes do tipo bool
+    while (listaTokens.get(i).getValor() != ")") {
+      if (listaTokens.get(i).getNome() == "id") {
+        if (listaTokens.get(i).getTipoVariavel() == "bool")
+          throw new ErrosCompilador("Tipo de variável diferente do tipo booleano");
+      }
+    }
   }
 
   // *Método responsável por verificar se as operações são realizadas com o mesmo
@@ -74,8 +80,11 @@ public class AnalisadorSemantico {
 
   // *Método responsável por verificar se a variável foi declarada antes de ser
   // utilizada */
-  private void verificaUsoAntesDaDeclaracao(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
-
+  private void verificaUsoAntesDaDeclaracao(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
+      throws ErrosCompilador {
+    if (tabelaDeSimbolos.isToken(listaTokens.get(i).getValor()) == null) {
+      throw new ErrosCompilador("Variável " + listaTokens.get(i).getValor() + " sendo utilizada antes da declaração");
+    }
   }
 
   // *Método responsável por verificar se a variável foi declarada mais de uma vez
@@ -94,6 +103,7 @@ public class AnalisadorSemantico {
       } else {
         System.out.println("Setando palavra reservada");
         listaTokens.get(i + 1).setContexto(contexto);
+        listaTokens.get(i + 1).setTipoVariavel(listaTokens.get(i).getValor());
         TabelaDeSimbolos.setPalavraReservada(listaTokens.get(i + 1));
       }
     }

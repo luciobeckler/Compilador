@@ -1,10 +1,11 @@
 {
-    int i; float x; bool y;
-    j = 10; i = 20;
+     int j; int i; bool x; bool y;
+    i = 20;
+    j = 15;
     i = i + j;
     x = 13.8;
-    y = True;
-    while ( y < y )  {
+    y = true;
+    while ( i < y )  {
         i = i + j;
         if ( i < j ){
         }
