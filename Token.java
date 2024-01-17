@@ -11,6 +11,12 @@ public class Token {
     this.contexto = contexto;
   }
 
+  public Token(String nome, String valor) { // pode receber uma string
+    this.nome = nome;
+    this.valor = valor;
+    this.contexto = -1;
+  }
+
   public int getContexto() {
     return contexto;
   }

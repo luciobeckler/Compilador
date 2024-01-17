@@ -1,0 +1,1 @@
+Permitir declaração de variáveis em qualquer lugar do código, alterar gramática para isso na análise sintática e verificar o contexto na semântica

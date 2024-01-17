@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 public class AnalisadorSemantico {
   private ArrayList<Token> listaToken;
+  private int contexto = 0;
 
   public AnalisadorSemantico(ArrayList<Token> listaToken) {
     this.listaToken = listaToken;
@@ -24,7 +25,8 @@ public class AnalisadorSemantico {
     tabelaSimbolos = TabelaDeSimbolos.gTabelaDeSimbolos();
 
     // !Lembrar que no token final não haverá i+1
-    for (int i = 0; i < listaTokens.size() - 1; i++) {
+    for (int i = 0; i < listaTokens.size() - 1; i++) { // !Cadastrar o contexto ao cadastrar uma variável, caso ela já
+                                                       // exista, teste o contexto dela
       if (Arrays.asList("int", "bool", "float").contains(listaTokens.get(i).getValor())) {
         verificaDeclaracaoDuplaDeVariavel(listaTokens, tabelaSimbolos, i);
       } else if (listaTokens.get(i).getNome() == "id" && listaTokens.get(i + 1).getValor() == "="
@@ -33,10 +35,28 @@ public class AnalisadorSemantico {
         verificaTiposDasOperacoes(listaTokens, tabelaSimbolos, i);
       } else if (Arrays.asList("if", "while").contains(listaTokens.get(i).getValor())) {
         verificaCondicionalBooleano(listaTokens, tabelaSimbolos, i);
-      }
-      // !Continuar daqui, implementar gatilho do método do contexto, concertar
-      // possíveis erros que podem ser gerados por conta do "i+2"
+      } else if (listaTokens.get(i).getValor().equals("{")) {
+        contexto++;
+      } else if (listaTokens.get(i).getValor().equals("}")) {
+        contexto--;
+      } else if (listaTokens.get(i).getNome() == "id") {
+        verificaContexto(listaTokens.get(i));
 
+        if (listaTokens.get(i + 1).getValor() == "=" && listaTokens.get(i + 2).getNome() != "=") {
+          verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
+        }
+      }
+
+      // !Concertar possíveis erros que podem ser gerados por conta do "i+2"
+
+    }
+  }
+
+  // * Método que recebe um toke e verifica se o contexto atual bate com o
+  // contexto de seu token cadastrado na tabela de símbolos */
+  private void verificaContexto(Token token) throws ErrosCompilador {
+    if (token.getContexto() > contexto) {
+      throw new ErrosCompilador("Variável declarada fora do contexto");
     }
   }
 
@@ -73,8 +93,8 @@ public class AnalisadorSemantico {
         throw new ErrosCompilador("Variável " + listaTokens.get(i + 1).getValor() + " declarada mais de uma vez");
       } else {
         System.out.println("Setando palavra reservada");
+        listaTokens.get(i + 1).setContexto(contexto);
         TabelaDeSimbolos.setPalavraReservada(listaTokens.get(i + 1));
-        // !PALAVRA ESTÁ SENDO ADICIONADA, CONTINUAR LÓGICA DAQUI
       }
     }
   }
