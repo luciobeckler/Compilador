@@ -36,20 +36,20 @@ public class TabelaDeSimbolos {
   // Retorna as palavras reservadas da linguagem
   public static HashMap<String, Token> InicializaPalavrasReservadas() {
 
-    hashPalavrasReservadas.put("int", new Token("palavraReservada", "int"));
-    hashPalavrasReservadas.put("float", new Token("palavraReservada", "float"));
-    hashPalavrasReservadas.put("bool", new Token("palavraReservada", "bool"));
-    hashPalavrasReservadas.put("true", new Token("palavraReservada", "true"));
-    hashPalavrasReservadas.put("false", new Token("palavraReservada", "false"));
-    hashPalavrasReservadas.put("while", new Token("palavraReservada", "while"));
-    hashPalavrasReservadas.put("if", new Token("palavraReservada", "if"));
-    hashPalavrasReservadas.put("break", new Token("palavraReservada", "break"));
+    hashPalavrasReservadas.put("int", new Token("palavraReservada", "int", -1));
+    hashPalavrasReservadas.put("float", new Token("palavraReservada", "float", -1));
+    hashPalavrasReservadas.put("bool", new Token("palavraReservada", "bool", -1));
+    hashPalavrasReservadas.put("true", new Token("palavraReservada", "true", -1));
+    hashPalavrasReservadas.put("false", new Token("palavraReservada", "false", -1));
+    hashPalavrasReservadas.put("while", new Token("palavraReservada", "while", -1));
+    hashPalavrasReservadas.put("if", new Token("palavraReservada", "if", -1));
+    hashPalavrasReservadas.put("break", new Token("palavraReservada", "break", -1));
 
     return hashPalavrasReservadas;
   }
 
   public static void setPalavraReservada(Token token) {
-    hashPalavrasReservadas.put(token.getValor(), new Token(token.getNome(), token.getValor()));
+    hashPalavrasReservadas.put(token.getValor(), new Token(token.getNome(), token.getValor(), token.getContexto()));
   }
 
   public Token isToken(String key) {

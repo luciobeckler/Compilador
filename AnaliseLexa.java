@@ -67,32 +67,32 @@ public class AnaliseLexa {
         case '/':
           stringAux = funcaoDosSimbolos(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1])); // Descobrir como receber o retorno
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1)); // Descobrir como receber o retorno
           break;
         case 'b':
           stringAux = funcaoDoB(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1])); // Descobrir como receber o retorno
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1)); // Descobrir como receber o retorno
           break;
         case 'f':
           stringAux = funcaoDoF(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1])); // Descobrir como receber o retorno
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1)); // Descobrir como receber o retorno
           break;
         case 'w':
           stringAux = funcaoDoW(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1])); // Descobrir como receber o retorno
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1)); // Descobrir como receber o retorno
           break;
         case 'i':
           stringAux = funcaoDoI(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1])); // Descobrir como receber o retorno
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1)); // Descobrir como receber o retorno
           break;
         case 't':
           stringAux = funcaoDoT(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1])); // Descobrir como receber o retorno
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1)); // Descobrir como receber o retorno
           break;
         case '0':
         case '1':
@@ -106,12 +106,12 @@ public class AnaliseLexa {
         case '9':
           stringAux = funcaoDoNumero(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1]));
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1));
           break;
         default:
           stringAux = funcaoDaVariavel(codigoLimpo);
           codigoLimpo = stringAux[2];
-          listaTokens.add(new Token(stringAux[0], stringAux[1]));
+          listaTokens.add(new Token(stringAux[0], stringAux[1], -1));
           break;
       }
     }
