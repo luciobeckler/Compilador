@@ -5,9 +5,9 @@
     i = i + j;
     x = 13.8;
     y = true;
-    while ( i < y )  {
+    while ( x < y )  {
         i = i + j;
-        if ( i < j ){
+        if ( x < y ){
         }
     }
 }

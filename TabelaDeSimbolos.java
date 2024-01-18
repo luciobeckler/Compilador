@@ -36,6 +36,10 @@ public class TabelaDeSimbolos {
   // Retorna as palavras reservadas da linguagem
   public static HashMap<String, Token> InicializaPalavrasReservadas() {
 
+    // TODO: Organizar as pesquisas estáticas em uma classe separada, visando
+    // centralizar e sempre fazer referência a esta classe.
+    // TODO: Pesquisar como criar uma classe estática com várias constantes,
+    // coloca-las em letra maiúscila
     hashPalavrasReservadas.put("int", new Token("palavraReservada", "int", -1));
     hashPalavrasReservadas.put("float", new Token("palavraReservada", "float", -1));
     hashPalavrasReservadas.put("bool", new Token("palavraReservada", "bool", -1));
@@ -49,7 +53,8 @@ public class TabelaDeSimbolos {
   }
 
   public static void setPalavraReservada(Token token) {
-    hashPalavrasReservadas.put(token.getValor(), new Token(token.getNome(), token.getValor(), token.getContexto()));
+    hashPalavrasReservadas.put(token.getValor(),
+        new Token(token.getNome(), token.getValor(), token.getContexto(), token.getTipoVariavel()));
   }
 
   public Token isToken(String key) {

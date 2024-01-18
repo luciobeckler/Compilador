@@ -64,11 +64,15 @@ public class AnalisadorSemantico {
 
     // !Continuar daqui, alterar o texto.txt as variáveis dentro do while para
     // testar se detecta variáveis tipo bool e diferentes do tipo bool
-    while (listaTokens.get(i).getValor() != ")") {
+    while (!listaTokens.get(i).getValor().equals(")")) {
       if (listaTokens.get(i).getNome() == "id") {
-        if (listaTokens.get(i).getTipoVariavel() == "bool")
+        Token variavel = tabelaDeSimbolos.isToken(listaTokens.get(i).getValor());
+        if (!variavel.getTipoVariavel().equals("bool")) // !usar a lista de token antes
+          // // adicionar a variável na
+          // tabela de símbolos
           throw new ErrosCompilador("Tipo de variável diferente do tipo booleano");
       }
+      i++;
     }
   }
 
@@ -103,6 +107,7 @@ public class AnalisadorSemantico {
       } else {
         System.out.println("Setando palavra reservada");
         listaTokens.get(i + 1).setContexto(contexto);
+        listaTokens.get(i + 1).setTipoVariavel(listaTokens.get(i).getValor());
         listaTokens.get(i + 1).setTipoVariavel(listaTokens.get(i).getValor());
         TabelaDeSimbolos.setPalavraReservada(listaTokens.get(i + 1));
       }

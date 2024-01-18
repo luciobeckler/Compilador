@@ -1,9 +1,10 @@
 public class Token {
   private String nome; // id, palavraReservada, numeroInteiro, numeroDecimal e simbolo
   private String valor;
-  private int contexto;
   private String tipoVariavel;
-  private int linha; // Adicionar a linha para indicar ao usuário onde se encontra o erro
+  private int contexto;
+
+  private int linha; // TODO Adicionar a linha para indicar ao usuário onde se encontra o erro
 
   // Construtor
   public Token(String nome, String valor, int contexto) { // pode receber uma string
