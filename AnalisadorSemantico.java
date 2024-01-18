@@ -39,13 +39,11 @@ public class AnalisadorSemantico {
         verificaContexto(listaTokens.get(i));
         verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
 
-        if (listaTokens.get(i + 1).getValor() == "=" && listaTokens.get(i + 2).getNome() != "=") {
+        if (listaTokens.get(i + 1).getValor().equals("=") && !listaTokens.get(i + 2).getNome().equals("=")) {
           verificaTiposDasOperacoes(listaTokens, tabelaSimbolos, i);
         }
       }
-
-      // !Concertar possíveis erros que podem ser gerados por conta do "i+2"
-
+      // !Concertar possíveis erros que podem ser gerados por conta do "i+2
     }
   }
 
@@ -62,8 +60,10 @@ public class AnalisadorSemantico {
   private void verificaCondicionalBooleano(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
       throws ErrosCompilador {
 
-    // !Continuar daqui, alterar o texto.txt as variáveis dentro do while para
+    // !Continuar daqui, retirar o provável while infinito travando a execução,
+    // alterar o texto.txt as variáveis dentro do while para
     // testar se detecta variáveis tipo bool e diferentes do tipo bool
+
     while (!listaTokens.get(i).getValor().equals(")")) {
       if (listaTokens.get(i).getNome() == "id") {
         Token variavel = tabelaDeSimbolos.isToken(listaTokens.get(i).getValor());
@@ -78,7 +78,44 @@ public class AnalisadorSemantico {
 
   // *Método responsável por verificar se as operações são realizadas com o mesmo
   // tipo */
-  private void verificaTiposDasOperacoes(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
+  private void verificaTiposDasOperacoes(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
+      throws ErrosCompilador {
+    Token tokenAtual = listaTokens.get(i);
+    // !Cotinuar daqui, olhar anotações no texto a ser compilado para entender
+    // melhor o que pode e oq não pode, prestar atenção que estas travas são
+    // impostas na análise sintatica e não aqui
+    while (!tokenAtual.getValor().equals(";")) {
+
+      if (tabelaDeSimbolos.isToken(tokenAtual.getValor()).getTipoVariavel().equals("bool"))
+        verificaTipoBool(tabelaDeSimbolos.isToken(tokenAtual.getValor()));
+      else if (tabelaDeSimbolos.isToken(tokenAtual.getValor()).getTipoVariavel().equals("int"))
+        verificaTipoInteiro();
+      else if (tabelaDeSimbolos.isToken(tokenAtual.getValor()).getTipoVariavel().equals("float"))
+        verificaTipoFloat();
+      i++;
+
+    }
+  }
+
+  private void verificaTipoBool(Token token) throws ErrosCompilador {
+    if (!token.getTipoVariavel().equals("bool") && token.getNome().equals("id")) {
+      throw new ErrosCompilador(
+          "A variável " + token.getValor() + " esta sendo atribuida de maneira errada a uma variável do tipo bool");
+    }
+    // Token deve ser uma palavra reservada diferente de true ou false
+    if (token.getNome().equals("palavraReservada")
+        && !(token.getValor().equals("true")
+            || token.getValor().equals("false"))) {
+      throw new ErrosCompilador("O valor " + token.getValor() + " não pode ser atribuido ao tipo bool");
+    }
+
+  }
+
+  private void verificaTipoInteiro() {
+
+  }
+
+  private void verificaTipoFloat() {
 
   }
 

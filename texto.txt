@@ -1,11 +1,12 @@
 {
-     int j; int i; bool x; bool y;
-    i = 20;
+     int j; bool i; bool x; bool y;
+    i = 20 + 25; //Aceita expressao matematica mas nai aceita logica
     j = 15;
     i = i + j;
     x = 13.8;
     y = true;
-    while ( x < y )  {
+    while ( j  > y )  //Aceita apenas expressao logica e nao matematica
+    {
         i = i + j;
         if ( x < y ){
         }
