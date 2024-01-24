@@ -1,9 +1,9 @@
 {
-     int j; int i; bool x; bool y;
-    i = 20;
-    j = 15;
+     bool j; bool i; bool x; bool y;
+    i = true;  //Corrigir na análise lexa gerando erro ao colocar false
+    j = 13; 
     i = i + j;
-    x = 13.8;
+    x = true; 
     y = true;
     while ( x < y )  {
         i = i + j;
