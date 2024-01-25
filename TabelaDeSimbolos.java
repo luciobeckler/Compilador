@@ -13,6 +13,10 @@ public class TabelaDeSimbolos {
     InicializaPalavrasReservadas();
   }
 
+  public static HashMap<String, Token> getHashPalavrasReservadas() {
+    return hashPalavrasReservadas;
+  }
+
   public static TabelaDeSimbolos gTabelaDeSimbolos() {
     if (tabela == null) {
       tabela = new TabelaDeSimbolos();

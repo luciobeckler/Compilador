@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProjetoCompiladores {
     public static void main(String[] args) throws Exception {
@@ -36,6 +37,11 @@ public class ProjetoCompiladores {
                 AnalisadorSemantico analisadorSemantico = new AnalisadorSemantico(tokensSemantico);
                 analisadorSemantico.ExibeTokens();
                 analisadorSemantico.AnaliseSemantica(tokensSemantico);
+
+                HashMap<String, Token> tabelaDeSimbolos = TabelaDeSimbolos.getHashPalavrasReservadas();
+
+                GeracaoDeCodigo geradorDeCodigo = new GeracaoDeCodigo(tokensSemantico, tabelaDeSimbolos);
+                geradorDeCodigo.geraCodigoAssembly();
 
             } else
                 System.out.println("ERRO: LEXO");

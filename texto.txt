@@ -1,9 +1,10 @@
 {
-     int j; bool i; bool x; bool y;
-    i = 20 + 25; //Aceita expressao matematica mas nai aceita logica
-    j = 15;
+
+     bool j; bool i; bool x; bool y;
+    i = true;  //Corrigir na análise lexa gerando erro ao colocar false
+    j = true; 
     i = i + j;
-    x = 13.8;
+    x = true; 
     y = true;
     while ( j  > y )  //Aceita apenas expressao logica e nao matematica
     {

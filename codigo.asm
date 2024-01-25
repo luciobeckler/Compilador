@@ -1,0 +1,11 @@
+{boolj;
+booli;
+boolx;
+booly;
+i=true;
+j=true;
+i=i+j;
+x=true;
+y=true;
+while(j>y){i=i+j;
+if(x<y){}}}

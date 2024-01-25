@@ -39,7 +39,7 @@ public class AnalisadorSemantico {
         verificaContexto(listaTokens.get(i));
         verificaUsoAntesDaDeclaracao(listaTokens, tabelaSimbolos, i);
 
-        if (listaTokens.get(i + 1).getValor().equals("=") && !listaTokens.get(i + 2).getNome().equals("=")) {
+        if (listaTokens.get(i + 1).getValor().equals("=") && !listaTokens.get(i + 2).getValor().equals("=")) {
           verificaTiposDasOperacoes(listaTokens, tabelaSimbolos, i);
         }
       }
@@ -60,10 +60,6 @@ public class AnalisadorSemantico {
   private void verificaCondicionalBooleano(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
       throws ErrosCompilador {
 
-    // !Continuar daqui, retirar o provável while infinito travando a execução,
-    // alterar o texto.txt as variáveis dentro do while para
-    // testar se detecta variáveis tipo bool e diferentes do tipo bool
-
     while (!listaTokens.get(i).getValor().equals(")")) {
       if (listaTokens.get(i).getNome() == "id") {
         Token variavel = tabelaDeSimbolos.isToken(listaTokens.get(i).getValor());
@@ -80,43 +76,46 @@ public class AnalisadorSemantico {
   // tipo */
   private void verificaTiposDasOperacoes(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
       throws ErrosCompilador {
-    Token tokenAtual = listaTokens.get(i);
-    // !Cotinuar daqui, olhar anotações no texto a ser compilado para entender
-    // melhor o que pode e oq não pode, prestar atenção que estas travas são
-    // impostas na análise sintatica e não aqui
-    while (!tokenAtual.getValor().equals(";")) {
-
-      if (tabelaDeSimbolos.isToken(tokenAtual.getValor()).getTipoVariavel().equals("bool"))
-        verificaTipoBool(tabelaDeSimbolos.isToken(tokenAtual.getValor()));
-      else if (tabelaDeSimbolos.isToken(tokenAtual.getValor()).getTipoVariavel().equals("int"))
-        verificaTipoInteiro();
-      else if (tabelaDeSimbolos.isToken(tokenAtual.getValor()).getTipoVariavel().equals("float"))
-        verificaTipoFloat();
-      i++;
-
+    switch (tabelaDeSimbolos.isToken(listaTokens.get(i).getValor()).getTipoVariavel()) {
+      case "bool":
+        verificaOperacaoBool(listaTokens, tabelaDeSimbolos, i);
+        break;
+      case "int":
+        verificaOperacaoInt(listaTokens, tabelaDeSimbolos, i);
+        break;
+      case "float":
+        verificaOperacaoFloat(listaTokens, tabelaDeSimbolos, i);
+        break;
+      default:
+        break;
     }
   }
 
-  private void verificaTipoBool(Token token) throws ErrosCompilador {
-    if (!token.getTipoVariavel().equals("bool") && token.getNome().equals("id")) {
-      throw new ErrosCompilador(
-          "A variável " + token.getValor() + " esta sendo atribuida de maneira errada a uma variável do tipo bool");
-    }
-    // Token deve ser uma palavra reservada diferente de true ou false
-    if (token.getNome().equals("palavraReservada")
-        && !(token.getValor().equals("true")
-            || token.getValor().equals("false"))) {
-      throw new ErrosCompilador("O valor " + token.getValor() + " não pode ser atribuido ao tipo bool");
+  private void verificaOperacaoBool(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i)
+      throws ErrosCompilador {
+    if (listaTokens.get(i + 2).getNome().equals("id")) {
+      if (!tabelaDeSimbolos.isToken(listaTokens.get(i + 2).getValor()).getTipoVariavel().equals("bool")) {
+        throw new ErrosCompilador("A variável " + listaTokens.get(i).getValor()
+            + " está sofrendo uma atribuição de um tipo diferente da que foi declarada");
+      }
+    } else if (listaTokens.get(i + 2).getNome().equals("palavraReservada")) {
+      if (!Arrays.asList("true", "false").contains(listaTokens.get(i + 2).getValor())) {
+        throw new ErrosCompilador("A variável " + listaTokens.get(i).getValor()
+            + " está sofrendo uma atribuição de um tipo diferente da que foi declarada");
+      }
+    } else if (Arrays.asList("numeroInteiro", "numeroDecimal").contains(listaTokens.get(i + 2).getNome())) {
+      throw new ErrosCompilador("A variável " + listaTokens.get(i).getValor()
+          + " está sofrendo uma atribuição de um tipo diferente da que foi declarada");
     }
 
   }
 
-  private void verificaTipoInteiro() {
-
+  private void verificaOperacaoInt(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
+    System.err.println(listaTokens.get(i).getValor());
   }
 
-  private void verificaTipoFloat() {
-
+  private void verificaOperacaoFloat(ArrayList<Token> listaTokens, TabelaDeSimbolos tabelaDeSimbolos, int i) {
+    System.err.println(listaTokens.get(i).getValor());
   }
 
   // *Método responsável por verificar se a variável foi declarada antes de ser
