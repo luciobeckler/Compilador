@@ -1,5 +1,5 @@
 {
 
     int j; bool x; float a;
-
+    a = 10;
 }

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TabelaDeSimbolos {
 
@@ -66,5 +67,19 @@ public class TabelaDeSimbolos {
 
     return retornoIsToken;
   }
+
+  public static ArrayList<Token> retornaListaTokensID() {
+    ArrayList<Token> listaTokenID = new ArrayList<>();
+
+    for (Map.Entry<String, Token> entry : hashPalavrasReservadas.entrySet()) {
+      if (entry.getValue().getNome().equals("id")) {
+        listaTokenID.add(entry.getValue());
+      }
+    }
+
+    return listaTokenID;
+  }
+
+  // gerar exibição da tabela de simbolo e da listaTokens nas próprias classes
 
 }

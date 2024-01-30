@@ -8,14 +8,14 @@ import java.util.Map;
 
 public class GeracaoDeCodigo {
   private ArrayList<Token> listaToken;
-  private HashMap<String, Token> tabelaDeSimbolos;
+  private TabelaDeSimbolos tabelaDeSimbolos;
   private File arquivoASM;
   private FileWriter fileWriter;
   private BufferedWriter bufferWrite;
 
-  public GeracaoDeCodigo(ArrayList<Token> listaToken, HashMap<String, Token> tabelaDeSimbolos) throws IOException {
+  public GeracaoDeCodigo(ArrayList<Token> listaToken) throws IOException {
     this.listaToken = listaToken;
-    this.tabelaDeSimbolos = tabelaDeSimbolos;
+    this.tabelaDeSimbolos = TabelaDeSimbolos.gTabelaDeSimbolos();
     this.arquivoASM = criaArquivoAssembly();
     this.fileWriter = new FileWriter(arquivoASM);
     this.bufferWrite = new BufferedWriter(fileWriter);
@@ -35,26 +35,37 @@ public class GeracaoDeCodigo {
 
   public void geraCodigoAssembly() throws Exception {
     testeEscritaListaTokesn();
-    testeEscritaTabelaSimbolos();
+    /* testeEscritaTabelaSimbolos(); */
     setaRegistradores();
+
+    for (int i = 0; i < listaToken.size(); i++) {
+      if (listaToken.get(i).getValor().equals("=")) {
+        String registradorTokenAnterior = tabelaDeSimbolos.isToken(listaToken.get(i - 1).getValor())
+            .getRegistradorASM();
+        bufferWrite.write("MOV " + registradorTokenAnterior + ", " + listaToken.get(i + 1).getValor());
+      }
+    }
 
     // Feche o BufferedWriter após concluir a escrita
     bufferWrite.close();
   }
 
-  private void testeEscritaTabelaSimbolos() throws Exception {
-    bufferWrite.write("Tabela de símbolos:");
-    bufferWrite.newLine();
-    for (Map.Entry<String, Token> entry : tabelaDeSimbolos.entrySet()) {
-      try {
-        bufferWrite.write(entry.getValue().getValor());
-        bufferWrite.newLine();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    bufferWrite.newLine();
-  }
+  /*
+   * private void testeEscritaTabelaSimbolos() throws Exception {
+   * bufferWrite.write("Tabela de símbolos:");
+   * bufferWrite.newLine();
+   * for (Map.Entry<String, Token> entry :
+   * tabelaDeSimbolos.gTabelaDeSimbolos().entrySet()) {
+   * try {
+   * bufferWrite.write(entry.getValue().getValor());
+   * bufferWrite.newLine();
+   * } catch (IOException e) {
+   * e.printStackTrace();
+   * }
+   * }
+   * bufferWrite.newLine();
+   * }
+   */
 
   private void testeEscritaListaTokesn() throws IOException {
     bufferWrite.write("Lista de tokens:");
@@ -74,21 +85,21 @@ public class GeracaoDeCodigo {
     bufferWrite.newLine();
   }
 
-  private void setaRegistradores() {
+  private void setaRegistradores() throws IOException {
     char registradorNome = 'A';
     int registradorNumero = 0;
+    ArrayList<Token> listaTokensID = TabelaDeSimbolos.retornaListaTokensID();
 
-    for (Map.Entry<String, Token> entry : tabelaDeSimbolos.entrySet()) {
-      // Garantindo que apenas os ID's recebam o tratamento de registradores
-      if (entry.getValue().getNome().equals("id")) {
-        // Garantindo que o número de registradores seja até a letra Z
-        if (registradorNumero <= 90) {
-          entry.getValue().setRegistradorASM("A" + registradorNome);
-          registradorNumero = (int) registradorNome;
-          registradorNumero++;
-          registradorNome = (char) registradorNumero;
-        }
+    for (Token item : listaTokensID) {
+      if (registradorNumero <= 90) {
+        item.setRegistradorASM(registradorNome + "X");
+        bufferWrite.write("MOV " + registradorNome + "X 0h");
+        bufferWrite.newLine();
       }
+
+      registradorNumero = (int) registradorNome; // Talvez você quis fazer isso dentro do if
+      registradorNumero++;
+      registradorNome = (char) registradorNumero;
     }
   }
 
@@ -100,11 +111,11 @@ public class GeracaoDeCodigo {
     this.listaToken = listaToken;
   }
 
-  public HashMap<String, Token> getTabelaDeSimbolos() {
+  public TabelaDeSimbolos getTabelaDeSimbolos() {
     return tabelaDeSimbolos;
   }
 
-  public void setTabelaDeSimbolos(HashMap<String, Token> tabelaDeSimbolos) {
+  public void setTabelaDeSimbolos(TabelaDeSimbolos tabelaDeSimbolos) {
     this.tabelaDeSimbolos = tabelaDeSimbolos;
   }
 }

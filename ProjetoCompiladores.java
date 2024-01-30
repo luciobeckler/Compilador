@@ -40,7 +40,7 @@ public class ProjetoCompiladores {
 
                 HashMap<String, Token> tabelaDeSimbolos = TabelaDeSimbolos.getHashPalavrasReservadas();
 
-                GeracaoDeCodigo geradorDeCodigo = new GeracaoDeCodigo(tokensSemantico, tabelaDeSimbolos);
+                GeracaoDeCodigo geradorDeCodigo = new GeracaoDeCodigo(tokensSemantico);
                 geradorDeCodigo.geraCodigoAssembly();
 
             } else
