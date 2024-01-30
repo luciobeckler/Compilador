@@ -34,8 +34,14 @@ public class GeracaoDeCodigo {
   }
 
   public void geraCodigoAssembly() throws Exception {
-    testeEscritaListaTokesn();
+    /* testeEscritaListaTokesn(); */
     /* testeEscritaTabelaSimbolos(); */
+    bufferWrite.write("section .text");
+    bufferWrite.newLine();
+    bufferWrite.write("    global _start");
+    bufferWrite.newLine();
+    bufferWrite.write("_start:");
+    bufferWrite.newLine();
     setaRegistradores();
 
     for (int i = 0; i < listaToken.size(); i++) {
@@ -93,7 +99,7 @@ public class GeracaoDeCodigo {
     for (Token item : listaTokensID) {
       if (registradorNumero <= 90) {
         item.setRegistradorASM(registradorNome + "X");
-        bufferWrite.write("MOV " + registradorNome + "X 0h");
+        bufferWrite.write("MOV " + registradorNome + "X, 0h");
         bufferWrite.newLine();
       }
 
