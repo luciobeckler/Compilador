@@ -3,6 +3,7 @@ public class Token {
   private String valor;
   private String tipoVariavel;
   private int contexto;
+  private String registradorASM;
 
   private int linha; // TODO Adicionar a linha para indicar ao usuário onde se encontra o erro
 
@@ -11,14 +12,6 @@ public class Token {
     this.nome = nome;
     this.valor = valor;
     this.contexto = contexto;
-  }
-
-  public String getTipoVariavel() {
-    return tipoVariavel;
-  }
-
-  public void setTipoVariavel(String tipoVariavel) {
-    this.tipoVariavel = tipoVariavel;
   }
 
   public Token(String nome, String valor) { // pode receber uma string
@@ -31,6 +24,30 @@ public class Token {
     this.nome = nome;
     this.valor = valor;
     this.contexto = contexto;
+    this.tipoVariavel = tipoVariavel;
+  }
+
+  public String getTipoVariavel() {
+    return tipoVariavel;
+  }
+
+  public String getRegistradorASM() {
+    return registradorASM;
+  }
+
+  public void setRegistradorASM(String registradorASM) {
+    this.registradorASM = registradorASM;
+  }
+
+  public int getLinha() {
+    return linha;
+  }
+
+  public void setLinha(int linha) {
+    this.linha = linha;
+  }
+
+  public void setTipoVariavel(String tipoVariavel) {
     this.tipoVariavel = tipoVariavel;
   }
 

@@ -1,15 +1,5 @@
 {
 
-     bool j; bool i; bool x; bool y;
-    i = true;  //Corrigir na análise lexa gerando erro ao colocar false
-    j = true; 
-    i = i + j;
-    x = true; 
-    y = true;
-    while ( j  > y )  //Aceita apenas expressao logica e nao matematica
-    {
-        i = i + j;
-        if ( x < y ){
-        }
-    }
+    int j; bool x; float a;
+
 }

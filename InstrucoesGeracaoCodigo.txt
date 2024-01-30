@@ -1,12 +1,19 @@
-Gerar classe geraçao de código
+- Gerar classe geraçao de código
 
-Gerar um texto de saida teste
+- Gerar um texto de saida teste
 
-Começar a gerar arquivo .asm associando uma variável a um registrador adicionando este campo na tabela de símbolos
+- Começar a gerar arquivo .asm associando uma variável a um registrador adicionando este campo na tabela de símbolos
 
-Criar um novo campo na tabela de simbolos referente aos registradores
-Criar um método que passe como parâmetro uma key para que seja setado na lista
+- Criar um novo campo nos tokens referente aos registradores
+
+- Criar um método que passe como parâmetro uma key para que seja setado na lista
 de tokens o registrador em questão
 
 
-Lógica dos registradores AX, BX, CX, DX, EX e etc.
+- Lógica dos registradores AX, BX, CX, DX, EX e etc.
+
+z = i + j;
+
+MOV AX, 0h
+MOV AB, 0h
+MOV AB, 0h
